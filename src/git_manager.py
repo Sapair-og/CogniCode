@@ -21,15 +21,30 @@ def generate_git_diff(original_code: str, patched_code: str, filename: str = "so
     return "".join(diff)
 
 def build_pr_markdown(
-    security_report: Dict[str, Any],
-    complexity_report: Dict[str, Any],
-    test_result: Dict[str, Any],
+    security_report: Any,
+    complexity_report: Any,
+    test_result: Any,
     git_diff: str,
     retries_used: int
 ) -> Dict[str, str]:
     """
     Constructs an institutional-grade Pull Request title and Markdown body.
     """
+    if isinstance(security_report, list):
+        security_report = security_report[0] if len(security_report) > 0 else {}
+    elif not isinstance(security_report, dict):
+        security_report = {}
+        
+    if isinstance(complexity_report, list):
+        complexity_report = complexity_report[0] if len(complexity_report) > 0 else {}
+    elif not isinstance(complexity_report, dict):
+        complexity_report = {}
+        
+    if isinstance(test_result, list):
+        test_result = test_result[0] if len(test_result) > 0 else {}
+    elif not isinstance(test_result, dict):
+        test_result = {}
+
     cwe_id = security_report.get("cwe_id", "General Refactor")
     severity = security_report.get("severity", "MEDIUM")
     
