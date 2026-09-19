@@ -299,8 +299,22 @@ if run_btn:
 if "cognicode_result" in st.session_state:
     res = st.session_state["cognicode_result"]
     sec = res.get("security_report", {})
+    if isinstance(sec, list):
+        sec = sec[0] if len(sec) > 0 else {}
+    elif not isinstance(sec, dict):
+        sec = {}
+
     comp = res.get("complexity_report", {})
+    if isinstance(comp, list):
+        comp = comp[0] if len(comp) > 0 else {}
+    elif not isinstance(comp, dict):
+        comp = {}
+
     test = res.get("test_result", {})
+    if isinstance(test, list):
+        test = test[0] if len(test) > 0 else {}
+    elif not isinstance(test, dict):
+        test = {}
     
     st.markdown("---")
     st.subheader("📋 Autonomous Remediation & Verification Report")

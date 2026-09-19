@@ -68,6 +68,10 @@ def security_audit_node(state: AgentState) -> Dict[str, Any]:
             "ast_metrics": json.dumps(ast_summary),
             "retrieved_patterns": json.dumps(state.get("retrieved_patterns", []))
         })
+        if isinstance(res, list):
+            res = res[0] if len(res) > 0 else {}
+        elif not isinstance(res, dict):
+            res = {"cwe_id": "CWE-General", "severity": "MEDIUM", "explanation": str(res)}
     except Exception as e:
         # Fallback if parser encounters non-JSON formatting
         res = {
@@ -100,6 +104,10 @@ def complexity_profiler_node(state: AgentState) -> Dict[str, Any]:
             "source_code": state["source_code"],
             "ast_metrics": json.dumps(ast_data)
         })
+        if isinstance(res, list):
+            res = res[0] if len(res) > 0 else {}
+        elif not isinstance(res, dict):
+            res = {"time_before": "O(N)", "time_after": "O(N)", "space_before": "O(1)", "space_after": "O(1)", "improvement": "Stable"}
     except Exception as e:
         res = {
             "time_before": "O(N)",
@@ -194,20 +202,38 @@ def self_healing_reflection_node(state: AgentState) -> Dict[str, Any]:
 
 def git_pr_node(state: AgentState) -> Dict[str, Any]:
     """Node 8: Generates unified git diff, branch name, and institutional PR description."""
+    sec_report = state.get("security_report", {})
+    if isinstance(sec_report, list):
+        sec_report = sec_report[0] if len(sec_report) > 0 else {}
+    elif not isinstance(sec_report, dict):
+        sec_report = {}
+        
+    comp_report = state.get("complexity_report", {})
+    if isinstance(comp_report, list):
+        comp_report = comp_report[0] if len(comp_report) > 0 else {}
+    elif not isinstance(comp_report, dict):
+        comp_report = {}
+
+    test_res = state.get("test_result", {})
+    if isinstance(test_res, list):
+        test_res = test_res[0] if len(test_res) > 0 else {}
+    elif not isinstance(test_res, dict):
+        test_res = {}
+
     diff = generate_git_diff(state["source_code"], state["candidate_patch"])
     pr_meta = build_pr_markdown(
-        security_report=state.get("security_report", {}),
-        complexity_report=state.get("complexity_report", {}),
-        test_result=state.get("test_result", {}),
+        security_report=sec_report,
+        complexity_report=comp_report,
+        test_result=test_res,
         git_diff=diff,
         retries_used=state.get("retry_count", 0)
     )
     
-    cwe_tag = state.get("security_report", {}).get("cwe_id", "patch").lower().replace("-", "").replace(" ", "")
+    cwe_tag = str(sec_report.get("cwe_id", "patch")).lower().replace("-", "").replace(" ", "")
     branch_name = f"cognicode/fix-{cwe_tag}-{int(time.time()) % 100000}"
-    commit_msg = f"fix(security): resolve {state.get('security_report', {}).get('cwe_id', 'issue')} & optimize complexity [CogniCode Bot]"
+    commit_msg = f"fix(security): resolve {sec_report.get('cwe_id', 'issue')} & optimize complexity [CogniCode Bot]"
     
-    final_status = "verified" if state.get("test_result", {}).get("passed", False) else "escalated"
+    final_status = "verified" if test_res.get("passed", False) else "escalated"
     history = list(state.get("node_history", [])) + ["8. Git Branch, Commit & PR Formulation"]
     
     return {
