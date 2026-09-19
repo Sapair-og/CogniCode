@@ -63,14 +63,22 @@ COMPLEXITY_PROMPT = ChatPromptTemplate.from_messages([
 Analyze the Big-O time and space complexity of the provided code.
 Evaluate recursive calls, loop bounds, memory consumption, and identify asymptotic bottlenecks.
 
+CRITICAL INSTRUCTIONS:
+- 'time_before': The current asymptotic time complexity of the input code (e.g. O(N^2) for nested loops, O(2^N) for naive recursion).
+- 'time_after': The OPTIMIZED asymptotic time complexity after applying your best algorithmic data structure or technique (e.g. O(N) using a Hash Set/Map, O(N log N) using sorting, or O(N) using Dynamic Programming/memoization). Do NOT output the old complexity here!
+- 'space_before': Current space complexity.
+- 'space_after': Space complexity of the optimized algorithm.
+- 'improvement': A concise summary of the algorithmic leap (e.g. "Quadratic to Linear: O(N^2) -> O(N)" or "Exponential to Linear: O(2^N) -> O(N)").
+- 'analysis': Clear breakdown of why the original is slow and how your proposed data structure or algorithm optimizes it.
+
 You must respond with valid JSON matching this schema:
 {{
-    "time_before": "O(...)",
-    "time_after": "O(...)",
-    "space_before": "O(...)",
-    "space_after": "O(...)",
+    "time_before": "O(N^2)",
+    "time_after": "O(N)",
+    "space_before": "O(1)",
+    "space_after": "O(N)",
     "analysis": "...",
-    "improvement": "..."
+    "improvement": "Quadratic to Linear: O(N^2) -> O(N)"
 }}"""),
     ("human", """Source Code:
 ```python
