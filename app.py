@@ -2,6 +2,11 @@ import os
 import sys
 import time
 import json
+from dotenv import load_dotenv
+
+# Load .env file automatically
+load_dotenv()
+
 import streamlit as st
 
 # Configure Streamlit Page
@@ -66,37 +71,50 @@ with st.sidebar:
     )
     
     if provider == "OpenAI":
+        env_openai_key = os.getenv("OPENAI_API_KEY", "")
         api_key_input = st.text_input(
             "OpenAI API Key",
-            value=os.getenv("OPENAI_API_KEY", ""),
+            value=env_openai_key,
             type="password",
-            help="Your OpenAI API Key. Defaults to .env if set."
+            help="Your OpenAI API Key. Loaded automatically from .env."
         )
+        if env_openai_key:
+            st.caption("✅ Loaded from `.env`")
         selected_model = st.selectbox("Model", ["gpt-4o-mini", "gpt-4o"], index=0)
     else:
+        env_groq_key = os.getenv("GROQ_API_KEY", "")
         api_key_input = st.text_input(
             "Groq API Key",
-            value=os.getenv("GROQ_API_KEY", ""),
+            value=env_groq_key,
             type="password",
-            help="Your free Groq API Key"
+            help="Your Groq API Key. Loaded automatically from .env."
         )
+        if env_groq_key:
+            st.caption("✅ Loaded from `.env`")
         selected_model = st.selectbox("Model", ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"], index=0)
         
     max_retries = st.slider("Max Self-Healing Retries", min_value=1, max_value=5, value=3)
     
     st.markdown("---")
     st.subheader("🐙 GitHub Integration")
+    env_gh_token = os.getenv("GITHUB_TOKEN", "")
     github_token = st.text_input(
         "GitHub Token (Optional)",
-        value=os.getenv("GITHUB_TOKEN", ""),
+        value=env_gh_token,
         type="password",
-        help="Optional Personal Access Token to open live PRs"
+        help="Personal Access Token to open live PRs. Loaded automatically from .env."
     )
+    if env_gh_token:
+        st.caption("✅ Loaded from `.env`")
+        
+    env_gh_repo = os.getenv("GITHUB_REPOSITORY", "")
     github_repo = st.text_input(
         "GitHub Repo (e.g. user/repo)",
-        value=os.getenv("GITHUB_REPOSITORY", ""),
-        placeholder="Sapair-og/demo-repo"
+        value=env_gh_repo,
+        placeholder="Sapair-og/CogniCode"
     )
+    if env_gh_repo:
+        st.caption(f"✅ Target repo: `{env_gh_repo}`")
     
     st.markdown("---")
     st.markdown("""
@@ -175,16 +193,17 @@ with col_right:
 
 # Execution Logic
 if run_btn:
-    if not api_key_input:
+    effective_key = (api_key_input or "").strip() or (os.getenv("OPENAI_API_KEY", "") if provider == "OpenAI" else os.getenv("GROQ_API_KEY", ""))
+    if not effective_key:
         st.error(f"Please provide an API key for {provider} in the sidebar or in your .env file.")
     elif not code_input.strip():
         st.warning("Please provide Python source code to analyze.")
     else:
         # Configure runtime environment
         if provider == "OpenAI":
-            os.environ["OPENAI_API_KEY"] = api_key_input
+            os.environ["OPENAI_API_KEY"] = effective_key
         else:
-            os.environ["GROQ_API_KEY"] = api_key_input
+            os.environ["GROQ_API_KEY"] = effective_key
             
         from src.config import get_llm
         from src.nodes import set_runtime_llm
@@ -195,7 +214,7 @@ if run_btn:
             runtime_llm = get_llm(
                 provider=provider.lower(),
                 model_name=selected_model,
-                api_key=api_key_input,
+                api_key=effective_key,
                 temperature=0.1
             )
             set_runtime_llm(runtime_llm)
