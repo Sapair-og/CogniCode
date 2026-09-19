@@ -31,20 +31,20 @@ class SelfHealingModel(BaseModel):
     revised_test: str = Field(description="Repaired or verified pytest test suite")
     fix_notes: str = Field(description="Explanation of corrections applied")
 
-# Prompts
+# Prompts with escaped double curly braces for JSON schema examples
 SECURITY_PROMPT = ChatPromptTemplate.from_messages([
     ("system", """You are an Enterprise Security Vulnerability Auditor specializing in OWASP Top 10, CWE patterns, and secure code review.
 Analyze the provided code and deterministic AST summary. Cross-reference with the retrieved enterprise pattern bank.
 Identify security vulnerabilities, credential leaks, injection risks, or unsafe operations.
 
 You must respond with valid JSON matching this schema:
-{
+{{
     "cwe_id": "CWE-...",
     "owasp_category": "...",
     "severity": "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | "SAFE",
     "explanation": "...",
     "vulnerable_lines": [1, 2]
-}"""),
+}}"""),
     ("human", """Source Code:
 ```python
 {source_code}
@@ -64,14 +64,14 @@ Analyze the Big-O time and space complexity of the provided code.
 Evaluate recursive calls, loop bounds, memory consumption, and identify asymptotic bottlenecks.
 
 You must respond with valid JSON matching this schema:
-{
+{{
     "time_before": "O(...)",
     "time_after": "O(...)",
     "space_before": "O(...)",
     "space_after": "O(...)",
     "analysis": "...",
     "improvement": "..."
-}"""),
+}}"""),
     ("human", """Source Code:
 ```python
 {source_code}
@@ -90,11 +90,11 @@ Your task is to:
 3. Make sure the code is 100% syntactically valid and runnable in Python 3.11.
 
 You must respond with valid JSON matching this schema:
-{
+{{
     "refactored_code": "def func(...): ...",
     "test_code": "import pytest\\nfrom solution import ...\\ndef test_basic(): ...",
     "patch_rationale": "..."
-}"""),
+}}"""),
     ("human", """Original Source Code:
 ```python
 {source_code}
@@ -117,12 +117,12 @@ The previous patch or test suite FAILED when executed in the Python Pytest sandb
 Analyze the execution failure trace, identify the root cause (syntax error, assertion failure, missing import, timeout), and repair the code and test suite.
 
 You must respond with valid JSON matching this schema:
-{
+{{
     "error_diagnosis": "...",
     "revised_code": "def func(...): ...",
     "revised_test": "import pytest\\nfrom solution import ...",
     "fix_notes": "..."
-}"""),
+}}"""),
     ("human", """Candidate Code That Failed:
 ```python
 {candidate_code}

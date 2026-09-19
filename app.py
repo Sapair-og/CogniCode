@@ -34,19 +34,26 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     .metric-box {
-        background-color: #f8f9fa;
-        border: 1px solid #e0e0e0;
+        background-color: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 8px;
-        padding: 12px 16px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+    }
+    .metric-box h4 {
+        margin-top: 0;
         margin-bottom: 10px;
     }
-    .badge-critical { background-color: #ffebee; color: #c62828; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
-    .badge-high { background-color: #fff3e0; color: #ef6c00; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
-    .badge-safe { background-color: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+    .metric-box p {
+        margin-bottom: 6px;
+    }
+    .badge-critical { background-color: #b71c1c; color: #ffffff; padding: 4px 10px; border-radius: 4px; font-weight: bold; }
+    .badge-high { background-color: #e65100; color: #ffffff; padding: 4px 10px; border-radius: 4px; font-weight: bold; }
+    .badge-safe { background-color: #1b5e20; color: #ffffff; padding: 4px 10px; border-radius: 4px; font-weight: bold; }
     .node-active {
-        padding: 8px 12px;
-        background-color: #e3f2fd;
-        border-left: 4px solid #1976d2;
+        padding: 8px 14px;
+        background-color: rgba(30, 136, 229, 0.15);
+        border-left: 4px solid #1e88e5;
         border-radius: 4px;
         margin-bottom: 6px;
         font-family: monospace;
