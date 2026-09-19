@@ -160,6 +160,7 @@ PRESETS = {
         "    if n <= 1:\n"
         "        return n\n"
         "    return compute_nth_fibonacci(n - 1) + compute_nth_fibonacci(n - 2)\n"
+    ),
     "Hybrid: O(N^2) Two-Sum Bottleneck + CWE-89 SQLi": (
         "import sqlite3\n\n"
         "def detect_fraudulent_pair(transactions: list, target_anomaly: int, account_id: str) -> list:\n"
