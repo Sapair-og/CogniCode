@@ -80,7 +80,7 @@ with st.sidebar:
             type="password",
             help="Your free Groq API Key"
         )
-        selected_model = st.selectbox("Model", ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"], index=0)
+        selected_model = st.selectbox("Model", ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"], index=0)
         
     max_retries = st.slider("Max Self-Healing Retries", min_value=1, max_value=5, value=3)
     
