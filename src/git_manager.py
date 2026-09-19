@@ -103,7 +103,9 @@ def create_github_pull_request(
             "message": "Local Git Mode: Branch & commit staged. Ready for manual push or local merge."
         }
         
-    url = f"https://api.github.com/repos/{repo_full_name}/pulls"
+    # Normalize 'https://github.com/owner/repo' or 'owner/repo'
+    clean_repo = repo_full_name.replace("https://github.com/", "").replace("http://github.com/", "").strip("/").rstrip(".git")
+    url = f"https://api.github.com/repos/{clean_repo}/pulls"
     headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github.v3+json"
