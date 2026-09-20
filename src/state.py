@@ -41,3 +41,7 @@ class AgentState(TypedDict):
     # Lifecycle & UI visualization
     status: str  # 'analyzing' | 'self_healing' | 'verified' | 'escalated'
     node_history: List[str]
+    
+    # Token economics & cost optimization
+    cache_hit: bool
+    cost_metrics: Dict[str, Any]

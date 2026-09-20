@@ -12,6 +12,15 @@ from src.nodes import (
     git_pr_node
 )
 
+def check_cache_bypass(state: AgentState) -> Literal["git_pr", "security_audit"]:
+    """
+    Cost & Latency Optimization Edge:
+    If AST semantic cache hit occurs, bypass LLM nodes straight to PR formulation.
+    """
+    if state.get("cache_hit", False):
+        return "git_pr"
+    return "security_audit"
+
 def should_self_heal(state: AgentState) -> Literal["self_healing_reflection", "git_pr"]:
     """
     Conditional edge function deciding whether to trigger self-healing
@@ -49,10 +58,17 @@ def build_cognicode_graph() -> StateGraph:
     builder.add_node("self_healing_reflection", self_healing_reflection_node)
     builder.add_node("git_pr", git_pr_node)
     
-    # Linear Pre-Execution Pipeline
+    # Linear Pre-Execution Pipeline with Cache Bypass
     builder.add_edge(START, "retrieve_memory")
     builder.add_edge("retrieve_memory", "symbolic_ast")
-    builder.add_edge("symbolic_ast", "security_audit")
+    builder.add_conditional_edges(
+        "symbolic_ast",
+        check_cache_bypass,
+        {
+            "git_pr": "git_pr",
+            "security_audit": "security_audit"
+        }
+    )
     builder.add_edge("security_audit", "complexity_profiler")
     builder.add_edge("complexity_profiler", "patch_synthesizer")
     builder.add_edge("patch_synthesizer", "sandbox_verifier")

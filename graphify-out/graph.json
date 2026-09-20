@@ -1,0 +1,4769 @@
+{
+  "version": "1.0.0",
+  "generator": "CogniCode-Graphify-Engine",
+  "statistics": {
+    "total_nodes": 95,
+    "total_edges": 617,
+    "categories": {
+      "module": 13,
+      "class": 8,
+      "function": 36,
+      "langgraph_node": 10,
+      "state_key": 20,
+      "prompt": 4,
+      "ui": 1,
+      "test_sample": 3
+    }
+  },
+  "nodes": [
+    {
+      "id": "module::src/ast_analyzer.py",
+      "label": "src/ast_analyzer.py",
+      "category": "module",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 4,
+      "total_degree": 5
+    },
+    {
+      "id": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "label": "SymbolicASTAnalyzer",
+      "category": "class",
+      "file": "src/ast_analyzer.py",
+      "docstring": "Symbolic AST Analyzer for deterministic static inspection of Python code.\nExtracts structural invariants, complexity metrics, and flaggable anti-patterns.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 12,
+      "total_degree": 13
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.__init__",
+      "label": "SymbolicASTAnalyzer.__init__()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_FunctionDef",
+      "label": "SymbolicASTAnalyzer.visit_FunctionDef()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 3,
+      "total_degree": 4
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_AsyncFunctionDef",
+      "label": "SymbolicASTAnalyzer.visit_AsyncFunctionDef()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ClassDef",
+      "label": "SymbolicASTAnalyzer.visit_ClassDef()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Import",
+      "label": "SymbolicASTAnalyzer.visit_Import()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ImportFrom",
+      "label": "SymbolicASTAnalyzer.visit_ImportFrom()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Call",
+      "label": "SymbolicASTAnalyzer.visit_Call()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 4,
+      "total_degree": 5
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ExceptHandler",
+      "label": "SymbolicASTAnalyzer.visit_ExceptHandler()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_If",
+      "label": "SymbolicASTAnalyzer.visit_If()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_For",
+      "label": "SymbolicASTAnalyzer.visit_For()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_While",
+      "label": "SymbolicASTAnalyzer.visit_While()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Assert",
+      "label": "SymbolicASTAnalyzer.visit_Assert()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "func::src/ast_analyzer.py::analyze_code_ast",
+      "label": "analyze_code_ast()",
+      "category": "function",
+      "file": "src/ast_analyzer.py",
+      "docstring": "Parses code into an AST, performs deterministic structural analysis,\nand returns a structured dictionary for the AgentState.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 27,
+      "total_degree": 28
+    },
+    {
+      "id": "module::src/cache.py",
+      "label": "src/cache.py",
+      "category": "module",
+      "file": "src/cache.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 5,
+      "total_degree": 6
+    },
+    {
+      "id": "class::src/cache.py::CodeAuditCache",
+      "label": "CodeAuditCache",
+      "category": "class",
+      "file": "src/cache.py",
+      "docstring": "Deterministic AST-Hash Semantic Cache.\nPrevents redundant LLM API calls by hashing code structure and AST metrics.\nSaves 100% of token costs on identical or structurally duplicate submissions.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 6,
+      "total_degree": 7
+    },
+    {
+      "id": "func::src/cache.py::CodeAuditCache.__init__",
+      "label": "CodeAuditCache.__init__()",
+      "category": "function",
+      "file": "src/cache.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "label": "CodeAuditCache._compute_hash()",
+      "category": "function",
+      "file": "src/cache.py",
+      "docstring": "Computes SHA-256 fingerprint from stripped code and model identifier.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 9,
+      "total_degree": 10
+    },
+    {
+      "id": "func::src/cache.py::CodeAuditCache._load_disk_cache",
+      "label": "CodeAuditCache._load_disk_cache()",
+      "category": "function",
+      "file": "src/cache.py",
+      "docstring": "Loads cached responses from persistent disk storage.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 4,
+      "total_degree": 5
+    },
+    {
+      "id": "func::src/cache.py::CodeAuditCache._save_disk_cache",
+      "label": "CodeAuditCache._save_disk_cache()",
+      "category": "function",
+      "file": "src/cache.py",
+      "docstring": "Persists cache to disk.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 3,
+      "total_degree": 4
+    },
+    {
+      "id": "func::src/cache.py::CodeAuditCache.get",
+      "label": "CodeAuditCache.get()",
+      "category": "function",
+      "file": "src/cache.py",
+      "docstring": "Retrieves cached result if present.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "func::src/cache.py::CodeAuditCache.put",
+      "label": "CodeAuditCache.put()",
+      "category": "function",
+      "file": "src/cache.py",
+      "docstring": "Caches audit results keyed by code hash.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 10,
+      "total_degree": 11
+    },
+    {
+      "id": "module::src/chains.py",
+      "label": "src/chains.py",
+      "category": "module",
+      "file": "src/chains.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 13,
+      "total_degree": 14
+    },
+    {
+      "id": "class::src/chains.py::SecurityAuditModel",
+      "label": "SecurityAuditModel",
+      "category": "class",
+      "file": "src/chains.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "class::src/chains.py::ComplexityReportModel",
+      "label": "ComplexityReportModel",
+      "category": "class",
+      "file": "src/chains.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "class::src/chains.py::PatchAndTestModel",
+      "label": "PatchAndTestModel",
+      "category": "class",
+      "file": "src/chains.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "class::src/chains.py::SelfHealingModel",
+      "label": "SelfHealingModel",
+      "category": "class",
+      "file": "src/chains.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "prompt::SECURITY_PROMPT",
+      "label": "SECURITY_PROMPT",
+      "category": "prompt",
+      "file": "src/chains.py",
+      "docstring": "Prompt Template",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "prompt::COMPLEXITY_PROMPT",
+      "label": "COMPLEXITY_PROMPT",
+      "category": "prompt",
+      "file": "src/chains.py",
+      "docstring": "Prompt Template",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "prompt::PATCH_AND_TEST_PROMPT",
+      "label": "PATCH_AND_TEST_PROMPT",
+      "category": "prompt",
+      "file": "src/chains.py",
+      "docstring": "Prompt Template",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "prompt::SELF_HEALING_PROMPT",
+      "label": "SELF_HEALING_PROMPT",
+      "category": "prompt",
+      "file": "src/chains.py",
+      "docstring": "Prompt Template",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "module::src/config.py",
+      "label": "src/config.py",
+      "category": "module",
+      "file": "src/config.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 4,
+      "total_degree": 6
+    },
+    {
+      "id": "func::src/config.py::get_llm",
+      "label": "get_llm()",
+      "category": "function",
+      "file": "src/config.py",
+      "docstring": "Factory function returning a configured LangChain ChatModel instance.\nSupports OpenAI (gpt-4o-mini) and Groq (llama-3.3-70b).",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_degree": 9
+    },
+    {
+      "id": "module::src/cost_tracker.py",
+      "label": "src/cost_tracker.py",
+      "category": "module",
+      "file": "src/cost_tracker.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 3,
+      "total_degree": 4
+    },
+    {
+      "id": "func::src/cost_tracker.py::estimate_tokens",
+      "label": "estimate_tokens()",
+      "category": "function",
+      "file": "src/cost_tracker.py",
+      "docstring": "Fast, deterministic token estimation (~4 characters per token heuristic).\nAvoids requiring heavy tokenizer downloads while providing accurate billing estimates.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "label": "calculate_workflow_cost()",
+      "category": "function",
+      "file": "src/cost_tracker.py",
+      "docstring": "Calculates token counts, estimated cost in USD, and savings achieved via caching/pruning.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 22,
+      "total_degree": 23
+    },
+    {
+      "id": "module::src/git_manager.py",
+      "label": "src/git_manager.py",
+      "category": "module",
+      "file": "src/git_manager.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_degree": 9
+    },
+    {
+      "id": "func::src/git_manager.py::generate_git_diff",
+      "label": "generate_git_diff()",
+      "category": "function",
+      "file": "src/git_manager.py",
+      "docstring": "Generates an authentic unified git diff string between original and patched code.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 4,
+      "total_degree": 5
+    },
+    {
+      "id": "func::src/git_manager.py::build_pr_markdown",
+      "label": "build_pr_markdown()",
+      "category": "function",
+      "file": "src/git_manager.py",
+      "docstring": "Constructs an institutional-grade Pull Request title and Markdown body.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 24,
+      "total_degree": 25
+    },
+    {
+      "id": "func::src/git_manager.py::create_github_pull_request",
+      "label": "create_github_pull_request()",
+      "category": "function",
+      "file": "src/git_manager.py",
+      "docstring": "Leverages GitHub REST API to push and open a Pull Request.\nIf no token is supplied, returns a simulation response for Local Git Mode.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 30,
+      "total_degree": 31
+    },
+    {
+      "id": "module::src/graph.py",
+      "label": "src/graph.py",
+      "category": "module",
+      "file": "src/graph.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 7,
+      "total_degree": 8
+    },
+    {
+      "id": "func::src/graph.py::check_cache_bypass",
+      "label": "check_cache_bypass()",
+      "category": "function",
+      "file": "src/graph.py",
+      "docstring": "Cost & Latency Optimization Edge:\nIf AST semantic cache hit occurs, bypass LLM nodes straight to PR formulation.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/graph.py::should_self_heal",
+      "label": "should_self_heal()",
+      "category": "function",
+      "file": "src/graph.py",
+      "docstring": "Conditional edge function deciding whether to trigger self-healing\nor proceed to Git PR formulation.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 7,
+      "total_degree": 8
+    },
+    {
+      "id": "func::src/graph.py::build_cognicode_graph",
+      "label": "build_cognicode_graph()",
+      "category": "function",
+      "file": "src/graph.py",
+      "docstring": "Assembles and compiles the CogniCode stateful cyclic agent graph.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 19,
+      "total_degree": 20
+    },
+    {
+      "id": "module::src/memory.py",
+      "label": "src/memory.py",
+      "category": "module",
+      "file": "src/memory.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 3,
+      "total_degree": 4
+    },
+    {
+      "id": "class::src/memory.py::EpisodicMemoryBank",
+      "label": "EpisodicMemoryBank",
+      "category": "class",
+      "file": "src/memory.py",
+      "docstring": "Episodic Bug Memory Bank using semantic scoring over verified enterprise CWE patterns.\nProvides few-shot in-context learning to guide the LLM patch synthesizer.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/memory.py::EpisodicMemoryBank.__init__",
+      "label": "EpisodicMemoryBank.__init__()",
+      "category": "function",
+      "file": "src/memory.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "label": "EpisodicMemoryBank.retrieve_relevant_patterns()",
+      "category": "function",
+      "file": "src/memory.py",
+      "docstring": "Retrieves the top-k most relevant vulnerability remediation templates\nbased on token and keyword overlap.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 7,
+      "total_degree": 8
+    },
+    {
+      "id": "module::src/nodes.py",
+      "label": "src/nodes.py",
+      "category": "module",
+      "file": "src/nodes.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 23,
+      "total_degree": 25
+    },
+    {
+      "id": "func::src/nodes.py::set_runtime_llm",
+      "label": "set_runtime_llm()",
+      "category": "function",
+      "file": "src/nodes.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "func::src/nodes.py::_get_active_llm",
+      "label": "_get_active_llm()",
+      "category": "function",
+      "file": "src/nodes.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 1,
+      "total_degree": 2
+    },
+    {
+      "id": "node::retrieve_memory_node",
+      "label": "retrieve_memory_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 1: Retrieves matching CWE/OWASP enterprise patterns from Episodic Memory Bank.",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 8,
+      "total_degree": 10
+    },
+    {
+      "id": "node::symbolic_ast_node",
+      "label": "symbolic_ast_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 2: Performs deterministic symbolic AST static parsing & checks semantic cache.",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 39,
+      "total_degree": 41
+    },
+    {
+      "id": "node::security_audit_node",
+      "label": "security_audit_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 3: Specialized Security Auditor analyzes vulnerabilities and maps to CWE.",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 25,
+      "total_degree": 27
+    },
+    {
+      "id": "node::complexity_profiler_node",
+      "label": "complexity_profiler_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 4: Big-O Algorithmic Performance Engineer evaluates time and space complexity.",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 19,
+      "total_degree": 21
+    },
+    {
+      "id": "node::patch_synthesizer_node",
+      "label": "patch_synthesizer_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 5: Synthesizes refactored code and comprehensive Pytest test suite.",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 24,
+      "total_degree": 26
+    },
+    {
+      "id": "node::sandbox_verifier_node",
+      "label": "sandbox_verifier_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 6: Executes Pytest in isolated subprocess sandbox with wall-clock timeout.",
+      "metadata": {},
+      "in_degree": 3,
+      "out_degree": 10,
+      "total_degree": 13
+    },
+    {
+      "id": "node::self_healing_reflection_node",
+      "label": "self_healing_reflection_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 7: Reflects on Pytest failure trace and autonomously repairs code & tests.",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 29,
+      "total_degree": 31
+    },
+    {
+      "id": "node::git_pr_node",
+      "label": "git_pr_node()",
+      "category": "langgraph_node",
+      "file": "src/nodes.py",
+      "docstring": "Node 8: Generates unified git diff, branch name, and institutional PR description.",
+      "metadata": {},
+      "in_degree": 3,
+      "out_degree": 72,
+      "total_degree": 75
+    },
+    {
+      "id": "module::src/sandbox.py",
+      "label": "src/sandbox.py",
+      "category": "module",
+      "file": "src/sandbox.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 7,
+      "total_degree": 8
+    },
+    {
+      "id": "func::src/sandbox.py::run_test_in_sandbox",
+      "label": "run_test_in_sandbox()",
+      "category": "function",
+      "file": "src/sandbox.py",
+      "docstring": "Executes pytest against the candidate code in an isolated temporary directory.\nEnforces process timeouts and captures full stdout/stderr and failure traces.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 41,
+      "total_degree": 42
+    },
+    {
+      "id": "module::src/state.py",
+      "label": "src/state.py",
+      "category": "module",
+      "file": "src/state.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 2,
+      "out_degree": 2,
+      "total_degree": 4
+    },
+    {
+      "id": "class::src/state.py::AgentState",
+      "label": "AgentState",
+      "category": "class",
+      "file": "src/state.py",
+      "docstring": "Unified typed state contract for the CogniCode multi-agent graph.\nActs as the Single Source of Truth passed across all LangGraph nodes.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 20,
+      "total_degree": 21
+    },
+    {
+      "id": "module::src/__init__.py",
+      "label": "src/__init__.py",
+      "category": "module",
+      "file": "src/__init__.py",
+      "docstring": "CogniCode Engine\nAutonomous Multi-Agent Code Remediation & Test-Driven Self-Healing Engine.",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 0,
+      "total_degree": 0
+    },
+    {
+      "id": "module::samples/exponential_fibonacci.py",
+      "label": "samples/exponential_fibonacci.py",
+      "category": "test_sample",
+      "file": "samples/exponential_fibonacci.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 1,
+      "total_degree": 1
+    },
+    {
+      "id": "func::samples/exponential_fibonacci.py::compute_nth_fibonacci",
+      "label": "compute_nth_fibonacci()",
+      "category": "function",
+      "file": "samples/exponential_fibonacci.py",
+      "docstring": "Computes the N-th Fibonacci number.\nPERFORMANCE BOTTLENECK: Naive binary recursion produces O(2^N) exponential time complexity,\nleading to severe CPU starvation and stack overflow on N >= 35 (CWE-400).",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 3,
+      "total_degree": 4
+    },
+    {
+      "id": "module::samples/null_dereference.py",
+      "label": "samples/null_dereference.py",
+      "category": "test_sample",
+      "file": "samples/null_dereference.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 1,
+      "total_degree": 1
+    },
+    {
+      "id": "func::samples/null_dereference.py::extract_user_contact_info",
+      "label": "extract_user_contact_info()",
+      "category": "function",
+      "file": "samples/null_dereference.py",
+      "docstring": "Extracts secondary email from a nested user profile payload.\nVULNERABILITY: Blind chained dereference without null-checks causes fatal NoneType crash (CWE-476).",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "module::samples/sql_injection.py",
+      "label": "samples/sql_injection.py",
+      "category": "test_sample",
+      "file": "samples/sql_injection.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 2,
+      "total_degree": 2
+    },
+    {
+      "id": "func::samples/sql_injection.py::authenticate_user",
+      "label": "authenticate_user()",
+      "category": "function",
+      "file": "samples/sql_injection.py",
+      "docstring": "Authenticates a user against an SQLite database.\nVULNERABILITY: Direct string formatting into raw SQL enables SQL Injection (CWE-89).",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_degree": 9
+    },
+    {
+      "id": "module::app.py",
+      "label": "app.py",
+      "category": "ui",
+      "file": "app.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 6,
+      "total_degree": 6
+    },
+    {
+      "id": "module::run_demo_test.py",
+      "label": "run_demo_test.py",
+      "category": "module",
+      "file": "run_demo_test.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 5,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::source_code",
+      "label": "source_code",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Original code under inspection",
+      "metadata": {},
+      "in_degree": 14,
+      "out_degree": 0,
+      "total_degree": 14
+    },
+    {
+      "id": "state_key::filename",
+      "label": "filename",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Target filename e.g. solution.py",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "state_key::language",
+      "label": "language",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Language (python)",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "state_key::ast_analysis",
+      "label": "ast_analysis",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Deterministic AST metrics & dangerous call detection",
+      "metadata": {},
+      "in_degree": 9,
+      "out_degree": 0,
+      "total_degree": 9
+    },
+    {
+      "id": "state_key::retrieved_patterns",
+      "label": "retrieved_patterns",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Few-shot CWE patterns from FAISS vector bank",
+      "metadata": {},
+      "in_degree": 4,
+      "out_degree": 0,
+      "total_degree": 4
+    },
+    {
+      "id": "state_key::security_report",
+      "label": "security_report",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "CWE vulnerability classification & severity",
+      "metadata": {},
+      "in_degree": 5,
+      "out_degree": 0,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::complexity_report",
+      "label": "complexity_report",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Big-O runtime & memory profiling",
+      "metadata": {},
+      "in_degree": 5,
+      "out_degree": 0,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::candidate_patch",
+      "label": "candidate_patch",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Refactored/remediated code solution",
+      "metadata": {},
+      "in_degree": 11,
+      "out_degree": 0,
+      "total_degree": 11
+    },
+    {
+      "id": "state_key::test_code",
+      "label": "test_code",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Pytest unit test suite validating fix",
+      "metadata": {},
+      "in_degree": 10,
+      "out_degree": 0,
+      "total_degree": 10
+    },
+    {
+      "id": "state_key::test_result",
+      "label": "test_result",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Sandbox test execution status & duration",
+      "metadata": {},
+      "in_degree": 6,
+      "out_degree": 0,
+      "total_degree": 6
+    },
+    {
+      "id": "state_key::retry_count",
+      "label": "retry_count",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Loop counter for self-healing cycle",
+      "metadata": {},
+      "in_degree": 5,
+      "out_degree": 0,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::max_retries",
+      "label": "max_retries",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Maximum self-healing attempts guard (default: 3)",
+      "metadata": {},
+      "in_degree": 4,
+      "out_degree": 0,
+      "total_degree": 4
+    },
+    {
+      "id": "state_key::git_branch",
+      "label": "git_branch",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Generated feature branch name",
+      "metadata": {},
+      "in_degree": 3,
+      "out_degree": 0,
+      "total_degree": 3
+    },
+    {
+      "id": "state_key::git_diff",
+      "label": "git_diff",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Unified git diff comparing original vs patch",
+      "metadata": {},
+      "in_degree": 4,
+      "out_degree": 0,
+      "total_degree": 4
+    },
+    {
+      "id": "state_key::pr_title",
+      "label": "pr_title",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Conventional pull request title",
+      "metadata": {},
+      "in_degree": 5,
+      "out_degree": 0,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::pr_body",
+      "label": "pr_body",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Institutional markdown PR description with test badges",
+      "metadata": {},
+      "in_degree": 5,
+      "out_degree": 0,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::status",
+      "label": "status",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Lifecycle status: analyzing, self_healing, verified, escalated",
+      "metadata": {},
+      "in_degree": 3,
+      "out_degree": 0,
+      "total_degree": 3
+    },
+    {
+      "id": "state_key::node_history",
+      "label": "node_history",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Trace of executed state nodes",
+      "metadata": {},
+      "in_degree": 19,
+      "out_degree": 0,
+      "total_degree": 19
+    },
+    {
+      "id": "state_key::cache_hit",
+      "label": "cache_hit",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Boolean flag indicating 0-cost AST cache hit",
+      "metadata": {},
+      "in_degree": 5,
+      "out_degree": 0,
+      "total_degree": 5
+    },
+    {
+      "id": "state_key::cost_metrics",
+      "label": "cost_metrics",
+      "category": "state_key",
+      "file": "src/state.py",
+      "docstring": "Token count, USD cost, and cost savings telemetry",
+      "metadata": {},
+      "in_degree": 4,
+      "out_degree": 0,
+      "total_degree": 4
+    },
+    {
+      "id": "node::START",
+      "label": "START",
+      "category": "langgraph_node",
+      "file": "src/graph.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 0,
+      "out_degree": 1,
+      "total_degree": 1
+    },
+    {
+      "id": "node::END",
+      "label": "END",
+      "category": "langgraph_node",
+      "file": "src/graph.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "module::src/ast_analyzer.py",
+      "target": "module::ast.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/ast_analyzer.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/ast_analyzer.py",
+      "target": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.__init__",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_FunctionDef",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_FunctionDef",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_FunctionDef",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_FunctionDef",
+      "target": "func::get_docstring",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_AsyncFunctionDef",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_AsyncFunctionDef",
+      "target": "func::visit_FunctionDef",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ClassDef",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ClassDef",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ClassDef",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Import",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Import",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Import",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ImportFrom",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ImportFrom",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ImportFrom",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Call",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Call",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Call",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Call",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Call",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ExceptHandler",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ExceptHandler",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_ExceptHandler",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_If",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_If",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_For",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_For",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_While",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_While",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/ast_analyzer.py::SymbolicASTAnalyzer",
+      "target": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Assert",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::SymbolicASTAnalyzer.visit_Assert",
+      "target": "func::generic_visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/ast_analyzer.py",
+      "target": "func::src/ast_analyzer.py::analyze_code_ast",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::syntax_valid",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::syntax_error",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::functions",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::classes",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::imports",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::risky_calls",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::bare_excepts",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::recursive_calls",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::cyclomatic_complexity",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::total_ast_nodes",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::SymbolicASTAnalyzer",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::visit",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::sum",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::parse",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::syntax_valid",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::syntax_error",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::functions",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::classes",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::imports",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::risky_calls",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::bare_excepts",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::recursive_calls",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::cyclomatic_complexity",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "state_key::total_ast_nodes",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::set",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/ast_analyzer.py::analyze_code_ast",
+      "target": "func::walk",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cache.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cache.py",
+      "target": "module::json.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cache.py",
+      "target": "module::hashlib.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cache.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cache.py",
+      "target": "class::src/cache.py::CodeAuditCache",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/cache.py::CodeAuditCache",
+      "target": "func::src/cache.py::CodeAuditCache.__init__",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.__init__",
+      "target": "func::makedirs",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.__init__",
+      "target": "func::_load_disk_cache",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/cache.py::CodeAuditCache",
+      "target": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::hexdigest",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::sha256",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::splitlines",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::encode",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::startswith",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._compute_hash",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/cache.py::CodeAuditCache",
+      "target": "func::src/cache.py::CodeAuditCache._load_disk_cache",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._load_disk_cache",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._load_disk_cache",
+      "target": "func::exists",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._load_disk_cache",
+      "target": "func::open",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._load_disk_cache",
+      "target": "func::load",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/cache.py::CodeAuditCache",
+      "target": "func::src/cache.py::CodeAuditCache._save_disk_cache",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._save_disk_cache",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._save_disk_cache",
+      "target": "func::open",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache._save_disk_cache",
+      "target": "func::dump",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/cache.py::CodeAuditCache",
+      "target": "func::src/cache.py::CodeAuditCache.get",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.get",
+      "target": "func::_compute_hash",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/cache.py::CodeAuditCache",
+      "target": "func::src/cache.py::CodeAuditCache.put",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::_compute_hash",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::_save_disk_cache",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cache.py::CodeAuditCache.put",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "module::json.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "module::pydantic.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "module::langchain_core/prompts.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "module::langchain_core/output_parsers.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "class::src/chains.py::SecurityAuditModel",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "class::src/chains.py::ComplexityReportModel",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "class::src/chains.py::PatchAndTestModel",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "class::src/chains.py::SelfHealingModel",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "prompt::SECURITY_PROMPT",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "prompt::COMPLEXITY_PROMPT",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "prompt::PATCH_AND_TEST_PROMPT",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/chains.py",
+      "target": "prompt::SELF_HEALING_PROMPT",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/config.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/config.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/config.py",
+      "target": "module::dotenv.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/config.py",
+      "target": "func::src/config.py::get_llm",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::ChatGroq",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::ChatOpenAI",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::ValueError",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/config.py::get_llm",
+      "target": "func::ValueError",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cost_tracker.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cost_tracker.py",
+      "target": "func::src/cost_tracker.py::estimate_tokens",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::estimate_tokens",
+      "target": "func::max",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::estimate_tokens",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/cost_tracker.py",
+      "target": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::prompt_tokens",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::completion_tokens",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::total_tokens",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::cost_usd",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::cached",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::savings_usd",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::tokens_saved",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::prompt_tokens",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::completion_tokens",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::total_tokens",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::cost_usd",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::cached",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::savings_usd",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "state_key::tokens_saved",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::estimate_tokens",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::estimate_tokens",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::estimate_tokens",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::estimate_tokens",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/cost_tracker.py::calculate_workflow_cost",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "module::time.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "module::difflib.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "module::requests.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "func::src/git_manager.py::generate_git_diff",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::generate_git_diff",
+      "target": "func::splitlines",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::generate_git_diff",
+      "target": "func::splitlines",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::generate_git_diff",
+      "target": "func::unified_diff",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::generate_git_diff",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "func::src/git_manager.py::build_pr_markdown",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "state_key::title",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "state_key::body",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::build_pr_markdown",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/git_manager.py",
+      "target": "func::src/git_manager.py::create_github_pull_request",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::success",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::mode",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::pr_url",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::message",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::rstrip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::post",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::success",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::mode",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::pr_url",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::pr_number",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::message",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::success",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::mode",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::error",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::status_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::message",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::success",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::mode",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::error",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "state_key::message",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::json",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::replace",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/git_manager.py::create_github_pull_request",
+      "target": "func::replace",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "module::langgraph/graph.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "module::src/state.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "module::src/nodes.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "func::src/graph.py::check_cache_bypass",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::check_cache_bypass",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::check_cache_bypass",
+      "target": "state_key::cache_hit",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "func::src/graph.py::should_self_heal",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "state_key::test_result",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "state_key::retry_count",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::should_self_heal",
+      "target": "state_key::max_retries",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/graph.py",
+      "target": "func::src/graph.py::build_cognicode_graph",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::StateGraph",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_node",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_conditional_edges",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_conditional_edges",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::add_edge",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/graph.py::build_cognicode_graph",
+      "target": "func::compile",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/memory.py",
+      "target": "module::json.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/memory.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/memory.py",
+      "target": "class::src/memory.py::EpisodicMemoryBank",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/memory.py::EpisodicMemoryBank",
+      "target": "func::src/memory.py::EpisodicMemoryBank.__init__",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/memory.py::EpisodicMemoryBank",
+      "target": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::sort",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::any",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::split",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/memory.py::EpisodicMemoryBank.retrieve_relevant_patterns",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::json.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::time.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::langchain_core/output_parsers.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/state.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/config.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/memory.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/ast_analyzer.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/sandbox.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/git_manager.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/cache.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/cost_tracker.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "module::src/chains.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "func::src/nodes.py::set_runtime_llm",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "func::src/nodes.py::_get_active_llm",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/nodes.py::_get_active_llm",
+      "target": "func::get_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::retrieve_memory_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "state_key::retrieved_patterns",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "func::retrieve_relevant_patterns",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::symbolic_ast_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::cache_hit",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::analyze_code_ast",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::cache_hit",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::security_report",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::complexity_report",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::test_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::test_result",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::git_diff",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::pr_title",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::pr_body",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::cost_metrics",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::calculate_workflow_cost",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::security_audit_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::security_report",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::_get_active_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::JsonOutputParser",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::invoke",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::retrieved_patterns",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::complexity_profiler_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "state_key::complexity_report",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::_get_active_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::JsonOutputParser",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::invoke",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::patch_synthesizer_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::test_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::_get_active_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::JsonOutputParser",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::invoke",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::security_report",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::complexity_report",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "state_key::retrieved_patterns",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::sandbox_verifier_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "state_key::test_result",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "func::run_test_in_sandbox",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "state_key::test_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::self_healing_reflection_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::test_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::retry_count",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::status",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::_get_active_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::JsonOutputParser",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::retry_count",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::invoke",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::test_result",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::test_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::test_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::test_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::max_retries",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "state_key::max_retries",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
+      "target": "node::git_pr_node",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::git_diff",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::git_branch",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::commit_message",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::pr_title",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::pr_body",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::status",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::cost_metrics",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::node_history",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::cache_hit",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::security_report",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::complexity_report",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::test_result",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::replace",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::cost_metrics",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::git_diff",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::generate_git_diff",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::pr_title",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::pr_body",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::build_pr_markdown",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::git_branch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::calculate_workflow_cost",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::put",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::list",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::isinstance",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::pr_title",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::pr_body",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::replace",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::test_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::node_history",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::len",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::retry_count",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::ast_analysis",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::candidate_patch",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "state_key::test_code",
+      "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::int",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "module::sys.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "module::time.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "module::tempfile.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "module::subprocess.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/sandbox.py",
+      "target": "func::src/sandbox.py::run_test_in_sandbox",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::TemporaryDirectory",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::passed",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::exit_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::stdout",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::stderr",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::failure_trace",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::duration_seconds",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::timed_out",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::open",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::write",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::open",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::write",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::run",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::passed",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::exit_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::stdout",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::stderr",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::failure_trace",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::duration_seconds",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::timed_out",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::passed",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::exit_code",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::stdout",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::stderr",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::failure_trace",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::duration_seconds",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "state_key::timed_out",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::splitlines",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::join",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::str",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/sandbox.py::run_test_in_sandbox",
+      "target": "func::startswith",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/state.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/state.py",
+      "target": "class::src/state.py::AgentState",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "module::samples/exponential_fibonacci.py",
+      "target": "func::samples/exponential_fibonacci.py::compute_nth_fibonacci",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/exponential_fibonacci.py::compute_nth_fibonacci",
+      "target": "func::ValueError",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/exponential_fibonacci.py::compute_nth_fibonacci",
+      "target": "func::compute_nth_fibonacci",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/exponential_fibonacci.py::compute_nth_fibonacci",
+      "target": "func::compute_nth_fibonacci",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::samples/null_dereference.py",
+      "target": "func::samples/null_dereference.py::extract_user_contact_info",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/null_dereference.py::extract_user_contact_info",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/null_dereference.py::extract_user_contact_info",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::samples/sql_injection.py",
+      "target": "module::sqlite3.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::samples/sql_injection.py",
+      "target": "func::samples/sql_injection.py::authenticate_user",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "func::connect",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "func::cursor",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "func::execute",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "func::fetchone",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "func::close",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "state_key::id",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "state_key::username",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::samples/sql_injection.py::authenticate_user",
+      "target": "state_key::role",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "module::app.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::app.py",
+      "target": "module::sys.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::app.py",
+      "target": "module::time.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::app.py",
+      "target": "module::json.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::app.py",
+      "target": "module::dotenv.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::app.py",
+      "target": "module::streamlit.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::dotenv.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::src/config.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::src/nodes.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::src/graph.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::source_code",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::filename",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::language",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::ast_analysis",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::retrieved_patterns",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::security_report",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::complexity_report",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::candidate_patch",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::test_code",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::test_result",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::retry_count",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::max_retries",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::git_branch",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::git_diff",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::pr_title",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::pr_body",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::status",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::node_history",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::cache_hit",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/state.py::AgentState",
+      "target": "state_key::cost_metrics",
+      "relationship": "DEFINES_FIELD",
+      "metadata": {}
+    },
+    {
+      "source": "node::START",
+      "target": "node::retrieve_memory_node",
+      "relationship": "TRANSITIONS_TO",
+      "metadata": {}
+    },
+    {
+      "source": "node::retrieve_memory_node",
+      "target": "node::symbolic_ast_node",
+      "relationship": "TRANSITIONS_TO",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "node::git_pr_node",
+      "relationship": "BYPASSES_ON_CACHE_HIT",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "node::security_audit_node",
+      "relationship": "TRANSITIONS_TO",
+      "metadata": {}
+    },
+    {
+      "source": "node::security_audit_node",
+      "target": "node::complexity_profiler_node",
+      "relationship": "TRANSITIONS_TO",
+      "metadata": {}
+    },
+    {
+      "source": "node::complexity_profiler_node",
+      "target": "node::patch_synthesizer_node",
+      "relationship": "TRANSITIONS_TO",
+      "metadata": {}
+    },
+    {
+      "source": "node::patch_synthesizer_node",
+      "target": "node::sandbox_verifier_node",
+      "relationship": "TRANSITIONS_TO",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "node::self_healing_reflection_node",
+      "relationship": "LOOPS_ON_TEST_FAILURE",
+      "metadata": {}
+    },
+    {
+      "source": "node::self_healing_reflection_node",
+      "target": "node::sandbox_verifier_node",
+      "relationship": "RE_EXECUTES_TESTS",
+      "metadata": {}
+    },
+    {
+      "source": "node::sandbox_verifier_node",
+      "target": "node::git_pr_node",
+      "relationship": "TRANSITIONS_ON_PASS",
+      "metadata": {}
+    },
+    {
+      "source": "node::git_pr_node",
+      "target": "node::END",
+      "relationship": "TERMINATES",
+      "metadata": {}
+    }
+  ]
+}
