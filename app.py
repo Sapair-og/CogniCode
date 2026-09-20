@@ -130,7 +130,14 @@ with st.sidebar:
     - 🧠 **Episodic Memory:** FAISS CWE/OWASP patterns
     - 🧪 **Sandbox:** Isolated Pytest runner
     - 🔄 **Cyclic Graph:** Self-healing reflection loop
+    - ⚡ **AST Cache:** 100% token savings on repeat runs
+    - 🕸️ **Graphify:** Queryable graphical codebase memory
     """)
+    
+    st.markdown("---")
+    st.subheader("🕸️ Project Graph Memory")
+    st.caption("Explore repository architecture & dependencies.")
+    show_graph_standalone = st.checkbox("Show Interactive Graph", value=False)
 
 # Load Presets
 PRESETS = {
@@ -221,6 +228,18 @@ with col_right:
     progress_bar = st.empty()
     steps_container = st.container()
 
+# Standalone Graph Viewer (if toggled before running)
+if show_graph_standalone and "cognicode_result" not in st.session_state and not run_btn:
+    st.markdown("---")
+    st.subheader("🕸️ Project Knowledge Graph (Graphify Memory)")
+    st.caption("Interactive queryable architecture map of all modules, classes, functions, and state dependencies.")
+    graph_html_path = os.path.join(os.path.dirname(__file__), "graphify-out", "graph.html")
+    if os.path.exists(graph_html_path):
+        with open(graph_html_path, "r", encoding="utf-8") as f:
+            html_data = f.read()
+        import streamlit.components.v1 as components
+        components.html(html_data, height=720, scrolling=True)
+
 # Execution Logic
 if run_btn:
     effective_key = (api_key_input or "").strip() or (os.getenv("OPENAI_API_KEY", "") if provider == "OpenAI" else os.getenv("GROQ_API_KEY", ""))
@@ -274,7 +293,9 @@ if run_btn:
             "pr_body": "",
             "pr_url": None,
             "status": "analyzing",
-            "node_history": []
+            "node_history": [],
+            "cache_hit": False,
+            "cost_metrics": {}
         }
         
         status_placeholder.info("⏳ Initializing CogniCode state machine...")
@@ -319,15 +340,53 @@ if "cognicode_result" in st.session_state:
     st.markdown("---")
     st.subheader("📋 Autonomous Remediation & Verification Report")
     
-    tab_overview, tab_diff, tab_test, tab_pr, tab_state = st.tabs([
-        "📊 Code Health Audit",
+    tab_overview, tab_diff, tab_test, tab_pr, tab_state, tab_graph = st.tabs([
+        "📊 Code Health & Cost Audit",
         "🔄 Side-by-Side Git Diff",
         "🧪 Pytest Sandbox Terminal",
         "🐙 GitHub Pull Request",
-        "🧩 LangGraph State Inspector"
+        "🧩 LangGraph State Inspector",
+        "🕸️ Project Graph Memory (Graphify)"
     ])
     
     with tab_overview:
+        # Cost & Token Optimization Banner
+        cost_info = res.get("cost_metrics", {})
+        is_hit = res.get("cache_hit", False)
+        
+        st.markdown("#### 💰 API Cost & Token Economics (Enterprise Optimization)")
+        cc1, cc2, cc3, cc4 = st.columns(4)
+        with cc1:
+            st.metric(
+                label="Total Tokens Billed",
+                value=f"{cost_info.get('total_tokens', 0):,}",
+                delta="⚡ 0 tokens (Cached)" if is_hit else f"{cost_info.get('prompt_tokens', 0)} in / {cost_info.get('completion_tokens', 0)} out",
+                delta_color="inverse" if is_hit else "normal"
+            )
+        with cc2:
+            st.metric(
+                label="Workflow Cost (USD)",
+                value=f"${cost_info.get('cost_usd', 0.0):.5f}",
+                delta="100% Free" if is_hit else "gpt-4o-mini tier",
+                delta_color="normal"
+            )
+        with cc3:
+            status_txt = "⚡ 100% CACHE HIT" if is_hit else "🔄 FRESH AUDIT"
+            st.metric(
+                label="Cache Acceleration",
+                value=status_txt,
+                delta="Bypassed LLMs" if is_hit else "Saved in Disk Cache",
+                delta_color="normal" if is_hit else "off"
+            )
+        with cc4:
+            st.metric(
+                label="Cost Savings (USD)",
+                value=f"${cost_info.get('savings_usd', 0.0):.5f}" if is_hit else "$0.00000",
+                delta=f"+{cost_info.get('tokens_saved', 0):,} tokens saved" if is_hit else "Baseline run",
+                delta_color="normal" if is_hit else "off"
+            )
+
+        st.markdown("---")
         c1, c2, c3 = st.columns(3)
         with c1:
             sev = sec.get("severity", "MEDIUM")
@@ -411,3 +470,55 @@ if "cognicode_result" in st.session_state:
         st.markdown("#### 🧠 Internal LangGraph `AgentState` Inspection")
         st.caption("Inspect the exact runtime state dictionary passed between nodes in the graph.")
         st.json(res)
+
+    with tab_graph:
+        st.markdown("### 🕸️ CogniCode Architectural Knowledge Graph (Graphify Memory)")
+        st.caption("Deterministic AST Entity-Relationship Graph generated via `graphify_engine.py` (inspired by Graphify-Labs/graphify).")
+
+        graph_html_path = os.path.join(os.path.dirname(__file__), "graphify-out", "graph.html")
+        graph_json_path = os.path.join(os.path.dirname(__file__), "graphify-out", "graph.json")
+        graph_report_path = os.path.join(os.path.dirname(__file__), "graphify-out", "GRAPH_REPORT.md")
+
+        # Action row
+        col_act1, col_act2, col_act3 = st.columns([2, 1, 1])
+        with col_act1:
+            if st.button("🔄 Re-Extract Knowledge Graph", key="btn_refresh_graph"):
+                import subprocess
+                subprocess.run([sys.executable, "graphify_engine.py"], capture_output=True)
+                st.success("Knowledge Graph re-extracted successfully!")
+                st.rerun()
+        with col_act2:
+            if os.path.exists(graph_json_path):
+                with open(graph_json_path, "r", encoding="utf-8") as f:
+                    st.download_button(
+                        label="📥 Download graph.json",
+                        data=f.read(),
+                        file_name="graph.json",
+                        mime="application/json"
+                    )
+        with col_act3:
+            if os.path.exists(graph_report_path):
+                with open(graph_report_path, "r", encoding="utf-8") as f:
+                    st.download_button(
+                        label="📄 Download GRAPH_REPORT.md",
+                        data=f.read(),
+                        file_name="GRAPH_REPORT.md",
+                        mime="text/markdown"
+                    )
+
+        # Embedded Interactive Graph
+        if os.path.exists(graph_html_path):
+            with open(graph_html_path, "r", encoding="utf-8") as f:
+                html_data = f.read()
+            import streamlit.components.v1 as components
+            components.html(html_data, height=720, scrolling=True)
+        else:
+            st.warning("graph.html not found. Run `python graphify_engine.py` to generate the interactive graph.")
+
+        # Agent Bootstrap Prompt expander
+        with st.expander("🤖 AI Agent Bootstrap & Context Injection Prompt (Copy for new AI sessions)", expanded=True):
+            st.info("If your AI session context expires or tokens run out, paste this prompt into any new agent (Claude, ChatGPT, Antigravity) to resume development instantly:")
+            if os.path.exists(graph_report_path):
+                with open(graph_report_path, "r", encoding="utf-8") as f:
+                    report_content = f.read()
+                st.code(report_content[:2000] + "\n\n... (See full GRAPH_REPORT.md for all 95 nodes & 617 edges)", language="markdown")

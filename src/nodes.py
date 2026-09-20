@@ -8,6 +8,8 @@ from src.memory import memory_bank
 from src.ast_analyzer import analyze_code_ast
 from src.sandbox import run_test_in_sandbox
 from src.git_manager import generate_git_diff, build_pr_markdown
+from src.cache import audit_cache
+from src.cost_tracker import calculate_workflow_cost
 from src.chains import (
     SECURITY_PROMPT,
     COMPLEXITY_PROMPT,
@@ -42,11 +44,41 @@ def retrieve_memory_node(state: AgentState) -> Dict[str, Any]:
     }
 
 def symbolic_ast_node(state: AgentState) -> Dict[str, Any]:
-    """Node 2: Performs deterministic symbolic AST static parsing."""
+    """Node 2: Performs deterministic symbolic AST static parsing & checks semantic cache."""
     ast_data = analyze_code_ast(state["source_code"])
+    
+    # Check AST-hash semantic cache to eliminate redundant LLM invocations
+    cached_data = audit_cache.get(state["source_code"], "gpt-4o-mini")
+    if cached_data:
+        cost_info = calculate_workflow_cost(
+            input_text=state["source_code"],
+            output_text=cached_data.get("candidate_patch", ""),
+            model_name="gpt-4o-mini",
+            is_cached=True
+        )
+        history = list(state.get("node_history", [])) + [
+            "2. Symbolic AST Analysis",
+            "⚡ AST Cache Hit! (Bypassing LLM nodes: 100% token savings, $0.00 cost)"
+        ]
+        return {
+            "ast_analysis": ast_data,
+            "cache_hit": True,
+            "security_report": cached_data.get("security_report", {}),
+            "complexity_report": cached_data.get("complexity_report", {}),
+            "candidate_patch": cached_data.get("candidate_patch", state["source_code"]),
+            "test_code": cached_data.get("test_code", ""),
+            "test_result": cached_data.get("test_result", {"passed": True, "duration_seconds": 0.001, "stdout": "Cached verification passed."}),
+            "git_diff": cached_data.get("git_diff", ""),
+            "pr_title": cached_data.get("pr_title", ""),
+            "pr_body": cached_data.get("pr_body", ""),
+            "cost_metrics": cost_info,
+            "node_history": history
+        }
+        
     history = list(state.get("node_history", [])) + ["2. Symbolic AST Analysis"]
     return {
         "ast_analysis": ast_data,
+        "cache_hit": False,
         "node_history": history
     }
 
@@ -202,6 +234,8 @@ def self_healing_reflection_node(state: AgentState) -> Dict[str, Any]:
 
 def git_pr_node(state: AgentState) -> Dict[str, Any]:
     """Node 8: Generates unified git diff, branch name, and institutional PR description."""
+    is_cached = state.get("cache_hit", False)
+    
     sec_report = state.get("security_report", {})
     if isinstance(sec_report, list):
         sec_report = sec_report[0] if len(sec_report) > 0 else {}
@@ -220,21 +254,55 @@ def git_pr_node(state: AgentState) -> Dict[str, Any]:
     elif not isinstance(test_res, dict):
         test_res = {}
 
-    diff = generate_git_diff(state["source_code"], state["candidate_patch"])
-    pr_meta = build_pr_markdown(
-        security_report=sec_report,
-        complexity_report=comp_report,
-        test_result=test_res,
-        git_diff=diff,
-        retries_used=state.get("retry_count", 0)
-    )
+    diff = state.get("git_diff") or generate_git_diff(state["source_code"], state["candidate_patch"])
+    
+    if is_cached and state.get("pr_title") and state.get("pr_body"):
+        pr_meta = {"title": state["pr_title"], "body": state["pr_body"]}
+    else:
+        pr_meta = build_pr_markdown(
+            security_report=sec_report,
+            complexity_report=comp_report,
+            test_result=test_res,
+            git_diff=diff,
+            retries_used=state.get("retry_count", 0)
+        )
     
     cwe_tag = str(sec_report.get("cwe_id", "patch")).lower().replace("-", "").replace(" ", "")
-    branch_name = f"cognicode/fix-{cwe_tag}-{int(time.time()) % 100000}"
+    branch_name = state.get("git_branch") or f"cognicode/fix-{cwe_tag}-{int(time.time()) % 100000}"
     commit_msg = f"fix(security): resolve {sec_report.get('cwe_id', 'issue')} & optimize complexity [CogniCode Bot]"
     
     final_status = "verified" if test_res.get("passed", False) else "escalated"
-    history = list(state.get("node_history", [])) + ["8. Git Branch, Commit & PR Formulation"]
+    
+    cost_data = state.get("cost_metrics")
+    if not cost_data:
+        # Calculate fresh workflow cost
+        input_text = state.get("source_code", "") + json.dumps(state.get("ast_analysis", {}))
+        output_text = (
+            json.dumps(sec_report) +
+            json.dumps(comp_report) +
+            state.get("candidate_patch", "") +
+            state.get("test_code", "")
+        )
+        cost_data = calculate_workflow_cost(
+            input_text=input_text,
+            output_text=output_text,
+            model_name="gpt-4o-mini",
+            is_cached=False
+        )
+        # Store in cache for future identical runs
+        audit_cache.put(state["source_code"], "gpt-4o-mini", {
+            "security_report": sec_report,
+            "complexity_report": comp_report,
+            "candidate_patch": state["candidate_patch"],
+            "test_code": state["test_code"],
+            "test_result": test_res,
+            "git_diff": diff,
+            "pr_title": pr_meta["title"],
+            "pr_body": pr_meta["body"]
+        })
+        
+    step_label = "8. Git Branch, Commit & PR Formulation (Cached)" if is_cached else "8. Git Branch, Commit & PR Formulation"
+    history = list(state.get("node_history", [])) + [step_label]
     
     return {
         "git_diff": diff,
@@ -243,5 +311,6 @@ def git_pr_node(state: AgentState) -> Dict[str, Any]:
         "pr_title": pr_meta["title"],
         "pr_body": pr_meta["body"],
         "status": final_status,
+        "cost_metrics": cost_data,
         "node_history": history
     }

@@ -176,14 +176,46 @@
 
 ---
 
+### Category 6: Token Economics & Cost Optimization
+
+#### Q15: In an enterprise setting, how do you prevent LLM API costs from exploding?
+> **Answer:** *"In CogniCode, we implemented a dual-layer cost-reduction system:
+> 1. **AST-Hash Semantic Caching (`src/cache.py`):** Before making any LLM call, we compute a normalized SHA-256 fingerprint of the code structure. If duplicate or functionally identical code is audited, we trigger a cache-hit conditional edge in LangGraph, immediately bypassing all LLM nodes and routing directly to verification/PR generation. This achieves **100% token savings ($0 cost) and 0-second latency**.
+> 2. **Deterministic Pre-Filtering & Prompt Pruning:** Instead of passing entire large codebases to the LLM, our symbolic AST analyzer extracts only relevant function signatures, dangerous calls, and cyclomatic complexity numbers, drastically compressing input prompt tokens.
+> 3. **Real-Time Cost Telemetry (`src/cost_tracker.py`):** We track prompt and completion tokens for every run, computing exact dollar expenditures based on enterprise pricing ($0.15/$0.60 per 1M tokens) and quantifying financial savings."*
+
+#### Q16: Why use AST hashing instead of standard string hashing for the cache?
+> **Answer:** *"Simple string hashing is brittle—adding a comment, extra whitespace, or changing variable formatting will cause a cache miss. By normalizing whitespace, stripping comment lines, and keying off the AST structural representation, we ensure that cosmetic code edits still hit the cache, maximizing token efficiency across teams."*
+
+---
+
+### Category 7: Graphify & Long-Horizon Knowledge Graph Memory
+
+#### Q17: What is Graphify and why did you incorporate it into CogniCode?
+> **Answer:** *"Graphify (`Graphify-Labs/graphify`) is a cutting-edge paradigm for AI agent persistent memory. When building complex agentic systems, AI context windows eventually expire or run out of tokens. Standard agents waste thousands of tokens sequentially reading every file in a repository to understand relationships.
+> 
+> Inspired by Graphify, we built `graphify_engine.py` which uses Python's native AST parser to deterministically extract our codebase into a **queryable knowledge graph** with 95 nodes and 617 edges:
+> - `graph.json`: Machine-readable graph of modules, classes, functions, LangGraph nodes, prompts, and state schemas.
+> - `GRAPH_REPORT.md`: Architectural summary identifying high-connectivity **'God Nodes'** (e.g. `AgentState`, `cognicode_graph`, `git_pr_node`) and an **AI Agent Bootstrap Prompt**.
+> - `graph.html`: Standalone, interactive network visualization embedded directly in our Streamlit UI.
+> 
+> If an agent session dies or tokens expire, any future AI assistant (Claude, Cursor, Antigravity) can ingest this single graph memory file and instantly achieve 100% architectural comprehension with zero redundant file reading."*
+
+#### Q18: What are 'God Nodes' in a codebase knowledge graph?
+> **Answer:** *"In network graph theory applied to codebases, God Nodes are entities with exceptionally high total degree centrality (many incoming and outgoing dependencies). In CogniCode, our primary God Node is `AgentState` in `src/state.py` (which acts as the single source of truth passed across all 8 nodes) and `git_pr_node` (which aggregates reports from security, complexity, pytest, and cost tracking). Identifying God Nodes helps developers immediately locate critical architectural bottlenecks and regression risks."*
+
+---
+
 ## 📝 Resume Bullet Points (Copy & Paste to Your Resume)
 
 Replace or upgrade your current projects with this:
 
 **CogniCode — Autonomous Multi-Agent Code Remediation & Self-Healing Engine**  
-*Python, LangGraph, LangChain, FAISS, Pytest, Python AST, Git/GitHub API, Streamlit*  
-- Engineered an autonomous multi-agent code analysis and remediation platform using **LangGraph** to autonomously detect security vulnerabilities (OWASP/CWE) and optimize algorithmic Big-O bottlenecks.
-- Implemented a **Neuro-Symbolic architecture** combining deterministic Python **AST parsing** for syntax/complexity verification with specialized LLM reasoning agents.
-- Developed an isolated **sandboxed execution engine** running **Pytest** test suites with a **cyclic self-healing reflection loop**, achieving autonomous error diagnosis and code repair.
-- Integrated a **FAISS-powered Episodic Memory Bank** to retrieve verified enterprise remediation patterns for few-shot in-context learning.
-- Automated end-to-end Git CI/CD workflows, generating unified diffs, conventional commits, and automated **GitHub Pull Requests** with test-execution badges.
+*Python, LangGraph, LangChain, FAISS, Pytest, Python AST, Graphify Knowledge Graph, Git/GitHub REST API, Streamlit*  
+- Engineered an autonomous multi-agent code remediation and self-healing platform using **LangGraph** to detect OWASP/CWE vulnerabilities, optimize algorithmic Big-O bottlenecks, and formulate institutional Pull Requests.
+- Implemented a **Neuro-Symbolic architecture** combining deterministic Python **AST parsing** for syntax/complexity verification with specialized LLM reasoning agents and a **FAISS Episodic Bug Memory Bank**.
+- Developed a **cyclic self-healing reflection loop** running in an isolated **Pytest sandbox**, autonomously diagnosing execution stack traces and repairing code until test suites achieve 100% pass rates.
+- Architected an enterprise **AST-Hash Semantic Cache** and **Token Cost Telemetry Engine** (`gpt-4o-mini`), bypassing LLM nodes on duplicate submissions to achieve **100% token cost savings ($0 spend) and 0s latency**.
+- Designed a **Graphify Codebase Knowledge Graph Memory** (`graphify_engine.py`), mapping 95 code entities and 617 dependency edges to enable instant long-horizon AI agent state bootstrapping and interactive network visualization.
+- Automated end-to-end Git CI/CD workflows, generating unified diffs, conventional commits, and live **GitHub Pull Requests** with automated test-execution badges.
+

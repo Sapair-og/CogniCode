@@ -81,12 +81,19 @@ streamlit run app.py
 ```
 cognicode-engine/
 ├── app.py                         # Streamlit interactive UI & live graph visualizer
+├── graphify_engine.py             # AST knowledge graph extractor (inspired by Graphify-Labs)
+├── graphify-out/                  # Graphify persistent memory layer
+│   ├── graph.json                 # Machine-readable entity-relationship graph (95 nodes, 617 edges)
+│   ├── GRAPH_REPORT.md            # Architectural breakdown & AI Agent Bootstrap Prompt
+│   └── graph.html                 # Interactive Vis.js codebase network visualizer
 ├── requirements.txt               # Pinned dependencies
 ├── .env.example                   # Environment configuration template
 ├── STUDY_AND_INTERVIEW_GUIDE.md   # Master 1-Day study guide & 25 Infosys interview Q&As
 ├── src/
 │   ├── state.py                   # TypedDict AgentState schema (Single Source of Truth)
 │   ├── config.py                  # LLM provider loader (OpenAI / Groq)
+│   ├── cache.py                   # AST-hash semantic cache (100% token savings on repeat runs)
+│   ├── cost_tracker.py            # Real-time token estimator and USD cost calculator
 │   ├── ast_analyzer.py            # Symbolic AST parser & cyclomatic complexity
 │   ├── memory.py                  # FAISS Episodic Memory Bank (CWE/OWASP patterns)
 │   ├── sandbox.py                 # Isolated Pytest execution runner with timeouts
