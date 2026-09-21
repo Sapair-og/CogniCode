@@ -45,3 +45,7 @@ class AgentState(TypedDict):
     # Token economics & cost optimization
     cache_hit: bool
     cost_metrics: Dict[str, Any]
+    
+    # TypeSafe AI Jev (System One) fast evaluation
+    jev_triage: Dict[str, Any]
+

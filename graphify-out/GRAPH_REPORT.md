@@ -30,13 +30,13 @@ You are now 100% synchronized with the CogniCode repository architecture. Await 
 ---
 
 ## 📊 Graph Summary Statistics
-- **Total Entities (Nodes):** 95
-- **Total Relationships (Edges):** 617
+- **Total Entities (Nodes):** 100
+- **Total Relationships (Edges):** 700
 - **Node Breakdown:**
-  - **Class:** 8
-  - **Function:** 36
+  - **Class:** 9
+  - **Function:** 39
   - **Langgraph Node:** 10
-  - **Module:** 13
+  - **Module:** 14
   - **Prompt:** 4
   - **State Key:** 20
   - **Test Sample:** 3
@@ -50,15 +50,15 @@ These nodes have the highest connectivity and form the backbone of the system:
 | Node ID | Category | Total Degree | In-Degree | Out-Degree | Role / File |
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | `git_pr_node()` | `langgraph_node` | **75** | 3 | 72 | `src/nodes.py` |
+| `symbolic_ast_node()` | `langgraph_node` | **47** | 2 | 45 | `src/nodes.py` |
+| `TypeSafeJevClient.triage_code()` | `function` | **42** | 1 | 41 | `src/jev_client.py` |
 | `run_test_in_sandbox()` | `function` | **42** | 1 | 41 | `src/sandbox.py` |
-| `symbolic_ast_node()` | `langgraph_node` | **41** | 2 | 39 | `src/nodes.py` |
 | `create_github_pull_request()` | `function` | **31** | 1 | 30 | `src/git_manager.py` |
 | `self_healing_reflection_node()` | `langgraph_node` | **31** | 2 | 29 | `src/nodes.py` |
 | `analyze_code_ast()` | `function` | **28** | 1 | 27 | `src/ast_analyzer.py` |
 | `security_audit_node()` | `langgraph_node` | **27** | 2 | 25 | `src/nodes.py` |
+| `src/nodes.py` | `module` | **26** | 2 | 24 | `src/nodes.py` |
 | `patch_synthesizer_node()` | `langgraph_node` | **26** | 2 | 24 | `src/nodes.py` |
-| `build_pr_markdown()` | `function` | **25** | 1 | 24 | `src/git_manager.py` |
-| `src/nodes.py` | `module` | **25** | 2 | 23 | `src/nodes.py` |
 
 ---
 
@@ -93,6 +93,11 @@ Autonomous Multi-Agent Code Remediation & Test-Driven Self-Healing Engine.
 - **`src/cost_tracker.py`**: Core module component
 - **`src/git_manager.py`**: Core module component
 - **`src/graph.py`**: Core module component
+- **`src/jev_client.py`**: TypeSafe AI Jev Client
+======================
+Integrates Jev ("System One" decision model by TypeSafe AI) into CogniCode.
+Provides sub-second, typed, and calibrated evaluations (Noul, Choice, Score)
+to triage code before or alongside heavier generative LLMs (System Two).
 - **`src/memory.py`**: Core module component
 - **`src/nodes.py`**: Core module component
 - **`src/sandbox.py`**: Core module component

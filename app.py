@@ -103,6 +103,18 @@ with st.sidebar:
     max_retries = st.slider("Max Self-Healing Retries", min_value=1, max_value=5, value=3)
     
     st.markdown("---")
+    st.subheader("⚡ TypeSafe AI (Jev System One)")
+    env_typesafe_key = os.getenv("TYPESAFE_API_KEY", "") or os.getenv("JEV_API_KEY", "")
+    typesafe_api_key_input = st.text_input(
+        "TypeSafe AI Key (Jev)",
+        value=env_typesafe_key,
+        type="password",
+        help="API Key for Jev by TypeSafe AI. Loaded automatically from .env."
+    )
+    if env_typesafe_key:
+        st.caption("✅ Loaded from `.env`")
+    else:
+        st.caption("💡 Optional: runs fast calibrated evaluator if omitted.")
     st.subheader("🐙 GitHub Integration")
     env_gh_token = os.getenv("GITHUB_TOKEN", "")
     github_token = st.text_input(
@@ -254,6 +266,12 @@ if run_btn:
         else:
             os.environ["GROQ_API_KEY"] = effective_key
             
+        # Configure TypeSafe Jev API Key if provided
+        if typesafe_api_key_input and typesafe_api_key_input.strip():
+            os.environ["TYPESAFE_API_KEY"] = typesafe_api_key_input.strip()
+            from src.jev_client import jev_client
+            jev_client.api_key = typesafe_api_key_input.strip()
+            
         from src.config import get_llm
         from src.nodes import set_runtime_llm
         from src.graph import cognicode_graph
@@ -295,7 +313,8 @@ if run_btn:
             "status": "analyzing",
             "node_history": [],
             "cache_hit": False,
-            "cost_metrics": {}
+            "cost_metrics": {},
+            "jev_triage": {}
         }
         
         status_placeholder.info("⏳ Initializing CogniCode state machine...")
@@ -385,6 +404,40 @@ if "cognicode_result" in st.session_state:
                 delta=f"+{cost_info.get('tokens_saved', 0):,} tokens saved" if is_hit else "Baseline run",
                 delta_color="normal" if is_hit else "off"
             )
+
+        # TypeSafe AI Jev (System One) Fast Decision Card
+        jev = res.get("jev_triage", {})
+        if jev:
+            st.markdown("#### ⚡ TypeSafe AI: Jev (System One Fast Triage Engine)")
+            jc1, jc2, jc3, jc4 = st.columns(4)
+            with jc1:
+                r_score = jev.get('risk_score', 0)
+                st.metric(
+                    label="Jev Risk Score (1-10)",
+                    value=f"{r_score} / 10",
+                    delta="CRITICAL" if r_score >= 8 else ("HIGH" if r_score >= 6 else ("MEDIUM" if r_score >= 4 else "LOW")),
+                    delta_color="inverse" if r_score >= 6 else "normal"
+                )
+            with jc2:
+                vuln_text = "🚨 VULNERABLE" if jev.get('has_vulnerability') else "✅ CLEAN"
+                st.metric(
+                    label="System One Gate (Noul)",
+                    value=vuln_text,
+                    delta=f"{int(jev.get('vuln_confidence', 0.9)*100)}% Confidence"
+                )
+            with jc3:
+                st.metric(
+                    label="CWE Classification (Choice)",
+                    value=f"{jev.get('cwe_choice', 'CWE-General')}",
+                    delta=f"Big-O: {jev.get('complexity_choice', 'O(1)')}"
+                )
+            with jc4:
+                api_mode = "Live API (api.typesafe.ai)" if jev.get("live_api") else "Calibrated Evaluator"
+                st.metric(
+                    label="Decision Latency (Speed)",
+                    value=f"{jev.get('latency_ms', 120)} ms",
+                    delta=api_mode
+                )
 
         st.markdown("---")
         c1, c2, c3 = st.columns(3)

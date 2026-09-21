@@ -2,12 +2,12 @@
   "version": "1.0.0",
   "generator": "CogniCode-Graphify-Engine",
   "statistics": {
-    "total_nodes": 95,
-    "total_edges": 617,
+    "total_nodes": 100,
+    "total_edges": 700,
     "categories": {
-      "module": 13,
-      "class": 8,
-      "function": 36,
+      "module": 14,
+      "class": 9,
+      "function": 39,
       "langgraph_node": 10,
       "state_key": 20,
       "prompt": 4,
@@ -512,6 +512,61 @@
       "total_degree": 20
     },
     {
+      "id": "module::src/jev_client.py",
+      "label": "src/jev_client.py",
+      "category": "module",
+      "file": "src/jev_client.py",
+      "docstring": "TypeSafe AI Jev Client\n======================\nIntegrates Jev (\"System One\" decision model by TypeSafe AI) into CogniCode.\nProvides sub-second, typed, and calibrated evaluations (Noul, Choice, Score)\nto triage code before or alongside heavier generative LLMs (System Two).",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 7,
+      "total_degree": 8
+    },
+    {
+      "id": "class::src/jev_client.py::TypeSafeJevClient",
+      "label": "TypeSafeJevClient",
+      "category": "class",
+      "file": "src/jev_client.py",
+      "docstring": "Client for TypeSafe AI's Jev model (jev-latest).\nImplements System-One fast classification, risk scoring, and boolean gates.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 3,
+      "total_degree": 4
+    },
+    {
+      "id": "func::src/jev_client.py::TypeSafeJevClient.__init__",
+      "label": "TypeSafeJevClient.__init__()",
+      "category": "function",
+      "file": "src/jev_client.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 2,
+      "total_degree": 3
+    },
+    {
+      "id": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "label": "TypeSafeJevClient.triage_code()",
+      "category": "function",
+      "file": "src/jev_client.py",
+      "docstring": "Executes System-One evaluation questions across security, complexity, and risk.\nReturns typed answers with confidence distributions and latency metrics.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 41,
+      "total_degree": 42
+    },
+    {
+      "id": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "label": "TypeSafeJevClient._local_calibrated_triage()",
+      "category": "function",
+      "file": "src/jev_client.py",
+      "docstring": "Deterministic, fast System-One evaluator simulating Jev's typed question rubric.\nEnsures zero pipeline disruption if user hasn't set an API key.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 21,
+      "total_degree": 22
+    },
+    {
       "id": "module::src/memory.py",
       "label": "src/memory.py",
       "category": "module",
@@ -563,8 +618,8 @@
       "docstring": "",
       "metadata": {},
       "in_degree": 2,
-      "out_degree": 23,
-      "total_degree": 25
+      "out_degree": 24,
+      "total_degree": 26
     },
     {
       "id": "func::src/nodes.py::set_runtime_llm",
@@ -604,11 +659,11 @@
       "label": "symbolic_ast_node()",
       "category": "langgraph_node",
       "file": "src/nodes.py",
-      "docstring": "Node 2: Performs deterministic symbolic AST static parsing & checks semantic cache.",
+      "docstring": "Node 2: Performs deterministic symbolic AST static parsing, TypeSafe Jev triage & checks semantic cache.",
       "metadata": {},
       "in_degree": 2,
-      "out_degree": 39,
-      "total_degree": 41
+      "out_degree": 45,
+      "total_degree": 47
     },
     {
       "id": "node::security_audit_node",
@@ -816,8 +871,8 @@
       "docstring": "",
       "metadata": {},
       "in_degree": 0,
-      "out_degree": 5,
-      "total_degree": 5
+      "out_degree": 7,
+      "total_degree": 7
     },
     {
       "id": "state_key::source_code",
@@ -826,9 +881,9 @@
       "file": "src/state.py",
       "docstring": "Original code under inspection",
       "metadata": {},
-      "in_degree": 14,
+      "in_degree": 15,
       "out_degree": 0,
-      "total_degree": 14
+      "total_degree": 15
     },
     {
       "id": "state_key::filename",
@@ -1002,9 +1057,9 @@
       "file": "src/state.py",
       "docstring": "Lifecycle status: analyzing, self_healing, verified, escalated",
       "metadata": {},
-      "in_degree": 3,
+      "in_degree": 5,
       "out_degree": 0,
-      "total_degree": 3
+      "total_degree": 5
     },
     {
       "id": "state_key::node_history",
@@ -2600,6 +2655,450 @@
       "metadata": {}
     },
     {
+      "source": "module::src/jev_client.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/jev_client.py",
+      "target": "module::json.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/jev_client.py",
+      "target": "module::time.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/jev_client.py",
+      "target": "module::urllib.request.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/jev_client.py",
+      "target": "module::urllib.error.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/jev_client.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/jev_client.py",
+      "target": "class::src/jev_client.py::TypeSafeJevClient",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/jev_client.py::TypeSafeJevClient",
+      "target": "func::src/jev_client.py::TypeSafeJevClient.__init__",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.__init__",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.__init__",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/jev_client.py::TypeSafeJevClient",
+      "target": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::_local_calibrated_triage",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::Request",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::enabled",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::live_api",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::model",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::has_vulnerability",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::vuln_confidence",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::cwe_choice",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::cwe_confidence",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::risk_score",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::complexity_choice",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::complexity_confidence",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::latency_ms",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "state_key::status",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::urlopen",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::loads",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::int",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::print",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::encode",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::decode",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::dumps",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::read",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::get",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient.triage_code",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/jev_client.py::TypeSafeJevClient",
+      "target": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::enabled",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::live_api",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::model",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::has_vulnerability",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::vuln_confidence",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::cwe_choice",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::cwe_confidence",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::risk_score",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::complexity_choice",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::complexity_confidence",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::latency_ms",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "state_key::status",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::lower",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::max",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::bool",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::count",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::int",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::count",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/jev_client.py::TypeSafeJevClient._local_calibrated_triage",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
       "source": "module::src/memory.py",
       "target": "module::json.py",
       "relationship": "IMPORTS",
@@ -2745,6 +3244,12 @@
     },
     {
       "source": "module::src/nodes.py",
+      "target": "module::src/jev_client.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
       "target": "module::src/chains.py",
       "relationship": "IMPORTS",
       "metadata": {}
@@ -2829,6 +3334,12 @@
     },
     {
       "source": "node::symbolic_ast_node",
+      "target": "state_key::jev_triage",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
       "target": "state_key::cache_hit",
       "relationship": "WRITES_STATE",
       "metadata": {}
@@ -2847,6 +3358,12 @@
     },
     {
       "source": "node::symbolic_ast_node",
+      "target": "func::triage_code",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
       "target": "func::get",
       "relationship": "CALLS",
       "metadata": {}
@@ -2854,6 +3371,12 @@
     {
       "source": "node::symbolic_ast_node",
       "target": "state_key::ast_analysis",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::jev_triage",
       "relationship": "WRITES_STATE",
       "metadata": {}
     },
@@ -2921,6 +3444,12 @@
       "source": "node::symbolic_ast_node",
       "target": "state_key::node_history",
       "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "state_key::source_code",
+      "relationship": "READS_STATE",
       "metadata": {}
     },
     {
@@ -3041,6 +3570,18 @@
       "source": "node::symbolic_ast_node",
       "target": "state_key::source_code",
       "relationship": "READS_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::int",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "node::symbolic_ast_node",
+      "target": "func::int",
+      "relationship": "CALLS",
       "metadata": {}
     },
     {
@@ -4552,6 +5093,18 @@
     {
       "source": "module::run_demo_test.py",
       "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::sys.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::run_demo_test.py",
+      "target": "module::time.py",
       "relationship": "IMPORTS",
       "metadata": {}
     },
