@@ -92,6 +92,7 @@ cognicode-engine/
 ├── src/
 │   ├── state.py                   # TypedDict AgentState schema (Single Source of Truth)
 │   ├── config.py                  # LLM provider loader (OpenAI / Groq)
+│   ├── gateway.py                 # Enterprise LLM Gateway (circuit breaking, failover, telemetry)
 │   ├── jev_client.py              # TypeSafe AI Jev client (System-One fast triage & decision engine)
 │   ├── cache.py                   # AST-hash semantic cache (100% token savings on repeat runs)
 │   ├── cost_tracker.py            # Real-time token estimator and USD cost calculator

@@ -136,8 +136,17 @@ with st.sidebar:
         st.caption(f"✅ Target repo: `{env_gh_repo}`")
     
     st.markdown("---")
+    st.subheader("🛡️ Enterprise LLM Gateway")
+    from src.gateway import llm_gateway
+    gw_health = llm_gateway.get_gateway_health()
+    st.caption(f"**Route:** `{gw_health['primary_route']}`")
+    st.caption(f"**Fallback:** `{gw_health['fallback_route']}` | Status: `{gw_health['status']}`")
+
+    st.markdown("---")
     st.markdown("""
     **Architecture Highlights:**
+    - ⚡ **TypeSafe Jev:** Sub-second System-One triage
+    - 🛡️ **LLM Gateway:** Resilient multi-provider failover
     - 🔍 **Symbolic AST:** Deterministic Python parser
     - 🧠 **Episodic Memory:** FAISS CWE/OWASP patterns
     - 🧪 **Sandbox:** Isolated Pytest runner

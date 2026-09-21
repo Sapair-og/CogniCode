@@ -2,12 +2,12 @@
   "version": "1.0.0",
   "generator": "CogniCode-Graphify-Engine",
   "statistics": {
-    "total_nodes": 100,
-    "total_edges": 700,
+    "total_nodes": 106,
+    "total_edges": 742,
     "categories": {
-      "module": 14,
-      "class": 9,
-      "function": 39,
+      "module": 15,
+      "class": 10,
+      "function": 43,
       "langgraph_node": 10,
       "state_key": 20,
       "prompt": 4,
@@ -375,9 +375,9 @@
       "file": "src/config.py",
       "docstring": "",
       "metadata": {},
-      "in_degree": 2,
+      "in_degree": 3,
       "out_degree": 4,
-      "total_degree": 6
+      "total_degree": 7
     },
     {
       "id": "func::src/config.py::get_llm",
@@ -422,6 +422,72 @@
       "in_degree": 1,
       "out_degree": 22,
       "total_degree": 23
+    },
+    {
+      "id": "module::src/gateway.py",
+      "label": "src/gateway.py",
+      "category": "module",
+      "file": "src/gateway.py",
+      "docstring": "Enterprise LLM Gateway for CogniCode\n====================================\nProvides unified routing, automatic failover (OpenAI -> Groq),\nlatency telemetry, and circuit-breaking for multi-provider resilience.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 5,
+      "total_degree": 6
+    },
+    {
+      "id": "class::src/gateway.py::LLMGateway",
+      "label": "LLMGateway",
+      "category": "class",
+      "file": "src/gateway.py",
+      "docstring": "Enterprise LLM Gateway:\n- Primary Route: OpenAI (gpt-4o-mini)\n- Failover Route: Groq (openai/gpt-oss-120b)\n- Telemetry: tracks requests, latencies, tokens, and failover counts.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 4,
+      "total_degree": 5
+    },
+    {
+      "id": "func::src/gateway.py::LLMGateway.__init__",
+      "label": "LLMGateway.__init__()",
+      "category": "function",
+      "file": "src/gateway.py",
+      "docstring": "",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 0,
+      "total_degree": 1
+    },
+    {
+      "id": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "label": "LLMGateway.get_resilient_llm()",
+      "category": "function",
+      "file": "src/gateway.py",
+      "docstring": "Returns primary LLM, or fails over to secondary provider if primary key is missing.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 10,
+      "total_degree": 11
+    },
+    {
+      "id": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "label": "LLMGateway.invoke_with_failover()",
+      "category": "function",
+      "file": "src/gateway.py",
+      "docstring": "Executes an LLM chain with automated failover and telemetry logging.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 9,
+      "total_degree": 10
+    },
+    {
+      "id": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "label": "LLMGateway.get_gateway_health()",
+      "category": "function",
+      "file": "src/gateway.py",
+      "docstring": "Returns runtime gateway health and observability metrics.",
+      "metadata": {},
+      "in_degree": 1,
+      "out_degree": 13,
+      "total_degree": 14
     },
     {
       "id": "module::src/git_manager.py",
@@ -618,8 +684,8 @@
       "docstring": "",
       "metadata": {},
       "in_degree": 2,
-      "out_degree": 24,
-      "total_degree": 26
+      "out_degree": 25,
+      "total_degree": 27
     },
     {
       "id": "func::src/nodes.py::set_runtime_llm",
@@ -1057,9 +1123,9 @@
       "file": "src/state.py",
       "docstring": "Lifecycle status: analyzing, self_healing, verified, escalated",
       "metadata": {},
-      "in_degree": 5,
+      "in_degree": 6,
       "out_degree": 0,
-      "total_degree": 5
+      "total_degree": 6
     },
     {
       "id": "state_key::node_history",
@@ -2045,6 +2111,252 @@
     {
       "source": "func::src/cost_tracker.py::calculate_workflow_cost",
       "target": "func::round",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/gateway.py",
+      "target": "module::os.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/gateway.py",
+      "target": "module::time.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/gateway.py",
+      "target": "module::typing.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/gateway.py",
+      "target": "module::src/config.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/gateway.py",
+      "target": "class::src/gateway.py::LLMGateway",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/gateway.py::LLMGateway",
+      "target": "func::src/gateway.py::LLMGateway.__init__",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/gateway.py::LLMGateway",
+      "target": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::bool",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::bool",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::get_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::get_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::get_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::get_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_resilient_llm",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/gateway.py::LLMGateway",
+      "target": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::int",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::append",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::invoke",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::print",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::get_llm",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::invoke",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.invoke_with_failover",
+      "target": "func::time",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "class::src/gateway.py::LLMGateway",
+      "target": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "relationship": "CONTAINS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::status",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::primary_route",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::fallback_route",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::total_requests",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::successful_requests",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::failovers_triggered",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "state_key::available_providers",
+      "relationship": "WRITES_STATE",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "func::bool",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "func::bool",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "func::strip",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "func::getenv",
+      "relationship": "CALLS",
+      "metadata": {}
+    },
+    {
+      "source": "func::src/gateway.py::LLMGateway.get_gateway_health",
+      "target": "func::getenv",
       "relationship": "CALLS",
       "metadata": {}
     },
@@ -3256,6 +3568,12 @@
     },
     {
       "source": "module::src/nodes.py",
+      "target": "module::src/gateway.py",
+      "relationship": "IMPORTS",
+      "metadata": {}
+    },
+    {
+      "source": "module::src/nodes.py",
       "target": "func::src/nodes.py::set_runtime_llm",
       "relationship": "CONTAINS",
       "metadata": {}
@@ -3268,7 +3586,7 @@
     },
     {
       "source": "func::src/nodes.py::_get_active_llm",
-      "target": "func::get_llm",
+      "target": "func::get_resilient_llm",
       "relationship": "CALLS",
       "metadata": {}
     },

@@ -222,17 +222,35 @@
 
 ---
 
+### Category 9: Enterprise LLM Gateway & Multi-Provider Resilience
+
+#### Q21: What is an Enterprise LLM Gateway and why does CogniCode use one?
+> **Answer:** *"In enterprise production, applications should never couple directly to a single LLM vendor endpoint like OpenAI. If OpenAI suffers an outage, rate limit (HTTP 429), or network spike, the entire system crashes.
+> 
+> Our **LLM Gateway (`src/gateway.py`)** acts as a resilient proxy layer that provides:
+> 1. **Automated Failover & Circuit Breaking:** Routes primarily to OpenAI (`gpt-4o-mini`), but if an error occurs, it automatically fails over to high-speed Groq (`openai/gpt-oss-120b`) with zero downtime.
+> 2. **Telemetry & Observability:** Logs latency (ms), token spend, provider health, and failover counts for IT governance.
+> 3. **Unified Interface:** Decouples our LangGraph agent nodes from vendor-specific SDK quirks."*
+
+#### Q22: How do Jev and the LLM Gateway work together in CogniCode?
+> **Answer:** *"They work as a two-tier defense:
+> - **Tier 1 (The Front Door - Jev System One):** Handles instant, typed triage and risk scoring in 100ms for a fraction of a cent.
+> - **Tier 2 (The Routing Engine - LLM Gateway):** If deep generative patch synthesis is required, the Gateway routes the task to the most available and cost-effective model (OpenAI or Groq) with circuit-breaking protection."*
+
+---
+
 ## 📝 Resume Bullet Points (Copy & Paste to Your Resume)
 
 Replace or upgrade your current projects with this:
 
 **CogniCode — Autonomous Multi-Agent Code Remediation & Self-Healing Engine**  
-*Python, LangGraph, TypeSafe AI (Jev), LangChain, FAISS, Pytest, Python AST, Graphify, GitHub REST API, Streamlit*  
+*Python, LangGraph, TypeSafe AI (Jev), LLM Gateway, FAISS, Pytest, Python AST, Graphify, GitHub API, Streamlit*  
 - Engineered an autonomous multi-agent code remediation platform using **LangGraph** to detect OWASP/CWE vulnerabilities, optimize algorithmic Big-O bottlenecks, and formulate institutional Pull Requests.
-- Architected a dual **System-One / System-Two AI pipeline**: integrated **TypeSafe AI's Jev** model for sub-second (100ms) typed triage (`Noul`, `Choice`, `Score`) alongside generative LLMs for deep patch synthesis.
-- Implemented a **Neuro-Symbolic architecture** combining deterministic Python **AST parsing** for syntax/complexity verification with specialized LLM reasoning agents and a **FAISS Episodic Bug Memory Bank**.
+- Architected a resilient **Enterprise LLM Gateway** (`src/gateway.py`) featuring automated circuit-breaking failover between **OpenAI** and **Groq** with runtime latency and token telemetry.
+- Implemented a dual **System-One / System-Two AI pipeline**: integrated **TypeSafe AI's Jev** model for sub-second (100ms) typed triage alongside generative LLMs for deep patch synthesis.
 - Developed a **cyclic self-healing reflection loop** running in an isolated **Pytest sandbox**, autonomously diagnosing execution stack traces and repairing code until test suites achieve 100% pass rates.
 - Architected an enterprise **AST-Hash Semantic Cache** and **Token Cost Telemetry Engine**, bypassing LLM nodes on duplicate submissions to achieve **100% token cost savings ($0 spend) and 0s latency**.
-- Designed a **Graphify Codebase Knowledge Graph Memory** (`graphify_engine.py`), mapping 100 code entities and 700 dependency edges to enable instant long-horizon AI agent state bootstrapping and interactive network visualization.
+- Designed a **Graphify Codebase Knowledge Graph Memory** (`graphify_engine.py`), mapping 106 code entities and 742 dependency edges for instant long-horizon AI agent state bootstrapping.
+
 
 

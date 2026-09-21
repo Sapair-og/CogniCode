@@ -22,6 +22,8 @@ from src.chains import (
     SelfHealingModel
 )
 
+from src.gateway import llm_gateway
+
 # Global or runtime LLM holder
 _runtime_llm = None
 
@@ -33,7 +35,7 @@ def _get_active_llm():
     global _runtime_llm
     if _runtime_llm is not None:
         return _runtime_llm
-    return get_llm()
+    return llm_gateway.get_resilient_llm()
 
 def retrieve_memory_node(state: AgentState) -> Dict[str, Any]:
     """Node 1: Retrieves matching CWE/OWASP enterprise patterns from Episodic Memory Bank."""

@@ -30,13 +30,13 @@ You are now 100% synchronized with the CogniCode repository architecture. Await 
 ---
 
 ## 📊 Graph Summary Statistics
-- **Total Entities (Nodes):** 100
-- **Total Relationships (Edges):** 700
+- **Total Entities (Nodes):** 106
+- **Total Relationships (Edges):** 742
 - **Node Breakdown:**
-  - **Class:** 9
-  - **Function:** 39
+  - **Class:** 10
+  - **Function:** 43
   - **Langgraph Node:** 10
-  - **Module:** 14
+  - **Module:** 15
   - **Prompt:** 4
   - **State Key:** 20
   - **Test Sample:** 3
@@ -56,8 +56,8 @@ These nodes have the highest connectivity and form the backbone of the system:
 | `create_github_pull_request()` | `function` | **31** | 1 | 30 | `src/git_manager.py` |
 | `self_healing_reflection_node()` | `langgraph_node` | **31** | 2 | 29 | `src/nodes.py` |
 | `analyze_code_ast()` | `function` | **28** | 1 | 27 | `src/ast_analyzer.py` |
+| `src/nodes.py` | `module` | **27** | 2 | 25 | `src/nodes.py` |
 | `security_audit_node()` | `langgraph_node` | **27** | 2 | 25 | `src/nodes.py` |
-| `src/nodes.py` | `module` | **26** | 2 | 24 | `src/nodes.py` |
 | `patch_synthesizer_node()` | `langgraph_node` | **26** | 2 | 24 | `src/nodes.py` |
 
 ---
@@ -91,6 +91,10 @@ Autonomous Multi-Agent Code Remediation & Test-Driven Self-Healing Engine.
 - **`src/chains.py`**: Core module component
 - **`src/config.py`**: Core module component
 - **`src/cost_tracker.py`**: Core module component
+- **`src/gateway.py`**: Enterprise LLM Gateway for CogniCode
+====================================
+Provides unified routing, automatic failover (OpenAI -> Groq),
+latency telemetry, and circuit-breaking for multi-provider resilience.
 - **`src/git_manager.py`**: Core module component
 - **`src/graph.py`**: Core module component
 - **`src/jev_client.py`**: TypeSafe AI Jev Client
