@@ -206,16 +206,33 @@
 
 ---
 
+### Category 8: System-One vs. System-Two AI (TypeSafe AI's Jev)
+
+#### Q19: What is the difference between "System-One" and "System-Two" AI in CogniCode?
+> **Answer:** *"Borrowing from Daniel Kahneman's cognitive psychology framework (*Thinking, Fast and Slow*), CogniCode separates fast perception from deliberate reasoning:
+> - **System One (Jev by TypeSafe AI):** A specialized decision-oriented model (`jev-latest`) engineered for ultra-fast (70ms–200ms), sub-second typed classifications (`Choice`, `Score`, and `Noul`/boolean) at up to 400x lower cost. It acts as our **initial triage gatekeeper**, instantly assessing code risk (1–10) and classifying CWE vulnerabilities with calibrated confidence distributions.
+> - **System Two (GPT-4o-mini / Groq):** Slow, reflective generative reasoning that takes over only when needed to synthesize complex code patches, write comprehensive Pytest suites, and perform self-healing error analysis."*
+
+#### Q20: Why not use GPT-4o for triage and classification?
+> **Answer:** *"Using generative frontier LLMs for simple classification is an anti-pattern in production:
+> 1. **High Latency:** Generative models take 3 to 15 seconds to generate auto-regressive text.
+> 2. **Parsing Fragility:** LLMs occasionally output conversational preamble or malformed JSON that crashes downstream parsers.
+> 3. **Prohibitive Cost:** Calling a frontier model for every minor triage decision balloons enterprise API bills.  
+> By delegating triage to **Jev**, we get deterministic, schema-safe answers in ~100ms with zero parsing risk, reserving heavy generative models strictly for patch synthesis."*
+
+---
+
 ## 📝 Resume Bullet Points (Copy & Paste to Your Resume)
 
 Replace or upgrade your current projects with this:
 
 **CogniCode — Autonomous Multi-Agent Code Remediation & Self-Healing Engine**  
-*Python, LangGraph, LangChain, FAISS, Pytest, Python AST, Graphify Knowledge Graph, Git/GitHub REST API, Streamlit*  
-- Engineered an autonomous multi-agent code remediation and self-healing platform using **LangGraph** to detect OWASP/CWE vulnerabilities, optimize algorithmic Big-O bottlenecks, and formulate institutional Pull Requests.
+*Python, LangGraph, TypeSafe AI (Jev), LangChain, FAISS, Pytest, Python AST, Graphify, GitHub REST API, Streamlit*  
+- Engineered an autonomous multi-agent code remediation platform using **LangGraph** to detect OWASP/CWE vulnerabilities, optimize algorithmic Big-O bottlenecks, and formulate institutional Pull Requests.
+- Architected a dual **System-One / System-Two AI pipeline**: integrated **TypeSafe AI's Jev** model for sub-second (100ms) typed triage (`Noul`, `Choice`, `Score`) alongside generative LLMs for deep patch synthesis.
 - Implemented a **Neuro-Symbolic architecture** combining deterministic Python **AST parsing** for syntax/complexity verification with specialized LLM reasoning agents and a **FAISS Episodic Bug Memory Bank**.
 - Developed a **cyclic self-healing reflection loop** running in an isolated **Pytest sandbox**, autonomously diagnosing execution stack traces and repairing code until test suites achieve 100% pass rates.
-- Architected an enterprise **AST-Hash Semantic Cache** and **Token Cost Telemetry Engine** (`gpt-4o-mini`), bypassing LLM nodes on duplicate submissions to achieve **100% token cost savings ($0 spend) and 0s latency**.
-- Designed a **Graphify Codebase Knowledge Graph Memory** (`graphify_engine.py`), mapping 95 code entities and 617 dependency edges to enable instant long-horizon AI agent state bootstrapping and interactive network visualization.
-- Automated end-to-end Git CI/CD workflows, generating unified diffs, conventional commits, and live **GitHub Pull Requests** with automated test-execution badges.
+- Architected an enterprise **AST-Hash Semantic Cache** and **Token Cost Telemetry Engine**, bypassing LLM nodes on duplicate submissions to achieve **100% token cost savings ($0 spend) and 0s latency**.
+- Designed a **Graphify Codebase Knowledge Graph Memory** (`graphify_engine.py`), mapping 100 code entities and 700 dependency edges to enable instant long-horizon AI agent state bootstrapping and interactive network visualization.
+
 

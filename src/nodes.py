@@ -10,6 +10,7 @@ from src.sandbox import run_test_in_sandbox
 from src.git_manager import generate_git_diff, build_pr_markdown
 from src.cache import audit_cache
 from src.cost_tracker import calculate_workflow_cost
+from src.jev_client import jev_client
 from src.chains import (
     SECURITY_PROMPT,
     COMPLEXITY_PROMPT,
@@ -44,8 +45,9 @@ def retrieve_memory_node(state: AgentState) -> Dict[str, Any]:
     }
 
 def symbolic_ast_node(state: AgentState) -> Dict[str, Any]:
-    """Node 2: Performs deterministic symbolic AST static parsing & checks semantic cache."""
+    """Node 2: Performs deterministic symbolic AST static parsing, TypeSafe Jev triage & checks semantic cache."""
     ast_data = analyze_code_ast(state["source_code"])
+    jev_triage = jev_client.triage_code(state["source_code"])
     
     # Check AST-hash semantic cache to eliminate redundant LLM invocations
     cached_data = audit_cache.get(state["source_code"], "gpt-4o-mini")
@@ -58,10 +60,12 @@ def symbolic_ast_node(state: AgentState) -> Dict[str, Any]:
         )
         history = list(state.get("node_history", [])) + [
             "2. Symbolic AST Analysis",
+            f"⚡ TypeSafe Jev Triage (System One): {jev_triage['cwe_choice']} (Risk: {jev_triage['risk_score']}/10, Conf: {int(jev_triage['vuln_confidence']*100)}%, {jev_triage['latency_ms']}ms)",
             "⚡ AST Cache Hit! (Bypassing LLM nodes: 100% token savings, $0.00 cost)"
         ]
         return {
             "ast_analysis": ast_data,
+            "jev_triage": jev_triage,
             "cache_hit": True,
             "security_report": cached_data.get("security_report", {}),
             "complexity_report": cached_data.get("complexity_report", {}),
@@ -75,9 +79,13 @@ def symbolic_ast_node(state: AgentState) -> Dict[str, Any]:
             "node_history": history
         }
         
-    history = list(state.get("node_history", [])) + ["2. Symbolic AST Analysis"]
+    history = list(state.get("node_history", [])) + [
+        "2. Symbolic AST Analysis",
+        f"⚡ TypeSafe Jev Triage (System One): {jev_triage['cwe_choice']} (Risk: {jev_triage['risk_score']}/10, Conf: {int(jev_triage['vuln_confidence']*100)}%, {jev_triage['latency_ms']}ms)"
+    ]
     return {
         "ast_analysis": ast_data,
+        "jev_triage": jev_triage,
         "cache_hit": False,
         "node_history": history
     }
