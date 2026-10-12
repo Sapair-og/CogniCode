@@ -9,7 +9,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-load_dotenv(".env")
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 from src.config import get_llm
 from src.nodes import set_runtime_llm

@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-env_path = ".env"
+env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
 
 if not os.path.exists(env_path):
     print(f"ERROR: .env file does not exist at {env_path}")
