@@ -5,9 +5,8 @@ Inspired by Graphify (Graphify-Labs/graphify).
 Transforms the entire CogniCode codebase into a queryable, visual knowledge graph
 with machine-readable graph.json, interactive graph.html, and GRAPH_REPORT.md.
 
-Produces an AI Agent Bootstrap Memory Layer so any future AI agent can ingest
-this single artifact and immediately understand and continue development
-without reading raw files or exhausting context windows.
+Also produces a compact architecture summary that can be passed to the LLM agents
+as context, so they understand the codebase without reading every raw file.
 """
 
 import os
@@ -275,8 +274,8 @@ class CodebaseGraphExtractor:
 
 ---
 
-## 🤖 AI Agent Bootstrap & Memory Injection Prompt
-> **Copy-paste this prompt into any AI agent session** when your context expires to instantly resume development without re-reading source files:
+## Architecture Context Block
+> Compact summary of the codebase, used as LLM context so agents don't need to re-read every source file:
 
 ```markdown
 You are working on CogniCode, an enterprise Autonomous Multi-Agent Code Remediation & Self-Healing Engine.

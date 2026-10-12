@@ -3,8 +3,8 @@
 
 ---
 
-## 🤖 AI Agent Bootstrap & Memory Injection Prompt
-> **Copy-paste this prompt into any AI agent session** when your context expires to instantly resume development without re-reading source files:
+## Architecture Context Block
+> Compact summary of the codebase, used as LLM context so agents don't need to re-read every source file:
 
 ```markdown
 You are working on CogniCode, an enterprise Autonomous Multi-Agent Code Remediation & Self-Healing Engine.
