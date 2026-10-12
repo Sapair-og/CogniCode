@@ -283,6 +283,7 @@ if run_btn:
             
         from src.config import get_llm
         from src.nodes import set_runtime_llm
+        from src.gateway import llm_gateway
         from src.graph import cognicode_graph
         from src.state import AgentState
         
@@ -293,7 +294,7 @@ if run_btn:
                 api_key=effective_key,
                 temperature=0.1
             )
-            set_runtime_llm(runtime_llm)
+            set_runtime_llm(llm_gateway.with_runtime_failover(runtime_llm, provider.lower(), 0.1))
         except Exception as e:
             st.error(f"Failed to initialize LLM: {str(e)}")
             st.stop()
@@ -577,9 +578,9 @@ if "cognicode_result" in st.session_state:
         else:
             st.warning("graph.html not found. Run `python graphify_engine.py` to generate the interactive graph.")
 
-        # Agent Bootstrap Prompt expander
-        with st.expander("🤖 AI Agent Bootstrap & Context Injection Prompt (Copy for new AI sessions)", expanded=True):
-            st.info("If your AI session context expires or tokens run out, paste this prompt into any new agent to resume development instantly:")
+        # Compact architecture summary used as LLM context
+        with st.expander("📄 Architecture Summary (LLM context block)", expanded=False):
+            st.info("Compact summary of the codebase graph. Injected into agent prompts so they understand the repo layout without reading every file.")
             if os.path.exists(graph_report_path):
                 with open(graph_report_path, "r", encoding="utf-8") as f:
                     report_content = f.read()

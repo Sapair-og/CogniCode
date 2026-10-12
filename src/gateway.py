@@ -45,18 +45,34 @@ class LLMGateway:
             self.failover_count += 1
             return get_llm(provider="openai", model_name="gpt-4o-mini", temperature=temperature)
 
-        # Standard primary resolution
+        # Standard primary resolution. When both providers are configured, wrap the
+        # primary in a runtime fallback so a failed call (rate limit, outage, timeout)
+        # is retried on the other provider automatically.
         try:
-            return get_llm(provider=primary_provider, model_name=primary_model, temperature=temperature)
+            primary = get_llm(provider=primary_provider, model_name=primary_model, temperature=temperature)
+            if has_openai and has_groq:
+                return self.with_runtime_failover(primary, primary_provider, temperature)
+            return primary
         except Exception:
             # Automatic fallback to alternative provider
             alt_provider = "groq" if primary_provider == "openai" else "openai"
             self.failover_count += 1
             return get_llm(provider=alt_provider, temperature=temperature)
 
-    def invoke_with_failover(self, chain, inputs: Dict[str, Any], primary_provider: str = "openai") -> Any:
+    def with_runtime_failover(self, primary_llm, primary_provider: str = "openai", temperature: float = 0.1):
+        """Wraps an LLM so runtime errors fall through to the other provider."""
+        alt_provider = "groq" if primary_provider == "openai" else "openai"
+        try:
+            fallback = get_llm(provider=alt_provider, temperature=temperature)
+        except Exception:
+            return primary_llm
+        return primary_llm.with_fallbacks([fallback])
+
+    def invoke_with_failover(self, chain, inputs: Dict[str, Any], primary_provider: str = "openai",
+                             fallback_chain=None) -> Any:
         """
-        Executes an LLM chain with automated failover and telemetry logging.
+        Executes an LLM chain with telemetry logging. If it fails and a fallback_chain
+        (the same chain built on the other provider) is given, that chain is used instead.
         """
         self.total_requests += 1
         t0 = time.time()
@@ -67,17 +83,14 @@ class LLMGateway:
             result = chain.invoke(inputs)
             self.successful_requests += 1
         except Exception as primary_error:
-            # Trigger Circuit Break & Failover
+            if fallback_chain is None:
+                raise
             alt_provider = "groq" if primary_provider == "openai" else "openai"
             print(f"[LLM Gateway] Primary provider '{primary_provider}' failed: {primary_error}. Failing over to '{alt_provider}'...")
             failed_over = True
             self.failover_count += 1
             provider_used = alt_provider
-            
-            # Re-bind chain with fallback LLM
-            fallback_llm = get_llm(provider=alt_provider)
-            # Re-invoke
-            result = chain.invoke(inputs)
+            result = fallback_chain.invoke(inputs)
             self.successful_requests += 1
 
         duration_ms = int((time.time() - t0) * 1000)
