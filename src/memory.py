@@ -1,5 +1,9 @@
-import json
+import hashlib
+import re
 from typing import List, Dict, Any
+
+import faiss
+import numpy as np
 
 # Enterprise CWE and Algorithmic Vulnerability Pattern Bank
 ENTERPRISE_PATTERNS = [
@@ -65,39 +69,65 @@ ENTERPRISE_PATTERNS = [
     }
 ]
 
+EMBED_DIM = 512
+_TOKEN_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*|\S")
+
+
+def embed_code(text: str, dim: int = EMBED_DIM) -> np.ndarray:
+    """Hashed bag-of-tokens + token-bigram embedding (no model download needed).
+
+    Code tokens are hashed into a fixed-size vector and L2-normalised, so inner
+    product in FAISS equals cosine similarity.
+    """
+    tokens = [t.lower() for t in _TOKEN_RE.findall(text)]
+    feats = tokens + [f"{a} {b}" for a, b in zip(tokens, tokens[1:])]
+    vec = np.zeros(dim, dtype="float32")
+    for f in feats:
+        h = int(hashlib.md5(f.encode("utf-8")).hexdigest(), 16)
+        vec[h % dim] += 1.0 if (h >> 64) & 1 else -1.0
+    norm = np.linalg.norm(vec)
+    return vec / norm if norm else vec
+
+
+def _pattern_text(pattern: Dict[str, Any]) -> str:
+    return " ".join([
+        pattern["title"], pattern["description"], " ".join(pattern["detection_keywords"]),
+        pattern["example_vulnerable"], pattern["remediation_pattern"],
+    ])
+
+
 class EpisodicMemoryBank:
     """
-    Episodic Bug Memory Bank using semantic scoring over verified enterprise CWE patterns.
-    Provides few-shot in-context learning to guide the LLM patch synthesizer.
+    Episodic bug memory: a FAISS index over verified CWE remediation patterns.
+    Retrieved patterns are injected as few-shot examples for the patch synthesizer.
+
+    Ranking is hybrid: FAISS cosine similarity between the input code and each
+    pattern, plus a small bonus for exact detection-keyword hits.
     """
-    def __init__(self):
-        self.patterns = ENTERPRISE_PATTERNS
+    def __init__(self, patterns: List[Dict[str, Any]] = ENTERPRISE_PATTERNS):
+        self.patterns = patterns
+        vectors = np.stack([embed_code(_pattern_text(p)) for p in patterns])
+        self.index = faiss.IndexFlatIP(vectors.shape[1])
+        self.index.add(vectors)
+
+    def _keyword_score(self, code_lower: str, pattern: Dict[str, Any]) -> float:
+        hits = sum(1 for kw in pattern["detection_keywords"] if kw.lower() in code_lower)
+        return hits / max(len(pattern["detection_keywords"]), 1)
 
     def retrieve_relevant_patterns(self, code_snippet: str, top_k: int = 2) -> List[Dict[str, Any]]:
-        """
-        Retrieves the top-k most relevant vulnerability remediation templates
-        based on token and keyword overlap.
-        """
+        """Returns the top-k most relevant remediation patterns for the snippet."""
+        query = embed_code(code_snippet).reshape(1, -1)
+        sims, ids = self.index.search(query, len(self.patterns))
         code_lower = code_snippet.lower()
-        scored_patterns = []
-        
-        for pattern in self.patterns:
-            score = 0
-            for kw in pattern["detection_keywords"]:
-                if kw.lower() in code_lower:
-                    score += 2
-            # Check title / category overlap
-            if any(term in code_lower for term in pattern["title"].lower().split()):
-                score += 1
-                
-            scored_patterns.append((score, pattern))
-            
-        # Sort by relevance score descending
-        scored_patterns.sort(key=lambda x: x[0], reverse=True)
-        
-        # Return top_k patterns
-        results = [p[1] for p in scored_patterns[:top_k]]
-        return results
+
+        scored = []
+        for sim, idx in zip(sims[0], ids[0]):
+            pattern = self.patterns[idx]
+            score = 0.7 * float(sim) + 0.3 * self._keyword_score(code_lower, pattern)
+            scored.append((score, pattern))
+
+        scored.sort(key=lambda x: x[0], reverse=True)
+        return [p for _, p in scored[:top_k]]
 
 # Global singleton
 memory_bank = EpisodicMemoryBank()
