@@ -1,6 +1,8 @@
 import os
 import sys
 
+import pytest
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
@@ -19,6 +21,10 @@ def test_gateway_health():
     assert "fallback_route" in health
     print(" Gateway Health verified successfully!")
 
+@pytest.mark.skipif(
+    not (os.getenv("OPENAI_API_KEY") and os.getenv("GROQ_API_KEY")),
+    reason="needs OPENAI_API_KEY and GROQ_API_KEY",
+)
 def test_resilient_llm():
     llm = llm_gateway.get_resilient_llm()
     assert llm is not None

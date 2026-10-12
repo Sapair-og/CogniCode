@@ -1,3 +1,4 @@
+import ast
 import os
 import json
 import hashlib
@@ -18,11 +19,18 @@ class CodeAuditCache:
         self._load_disk_cache()
 
     def _compute_hash(self, source_code: str, model_name: str) -> str:
-        """Computes SHA-256 fingerprint from stripped code and model identifier."""
-        normalized_code = "\n".join(
-            line.strip() for line in source_code.splitlines() 
-            if line.strip() and not line.strip().startswith("#")
-        )
+        """SHA-256 of the normalised AST + model id.
+
+        ast.dump ignores comments, blank lines and formatting, so cosmetic edits
+        still hit the cache. Falls back to stripped text if the code doesn't parse.
+        """
+        try:
+            normalized_code = ast.dump(ast.parse(source_code))
+        except SyntaxError:
+            normalized_code = "\n".join(
+                line.strip() for line in source_code.splitlines()
+                if line.strip() and not line.strip().startswith("#")
+            )
         payload = f"{model_name}::{normalized_code}"
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
