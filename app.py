@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-import json
+import html
 from dotenv import load_dotenv
 
 # Load .env file automatically
@@ -9,160 +9,215 @@ load_dotenv()
 
 import streamlit as st
 
-# Configure Streamlit Page
 st.set_page_config(
-    page_title="CogniCode | Autonomous Multi-Agent Code Remediation",
-    page_icon="🛡️",
+    page_title="CogniCode",
+    page_icon=":material/verified_user:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling
+ROOT = os.path.dirname(os.path.abspath(__file__))
+GRAPH_DIR = os.path.join(ROOT, "graphify-out")
+REPO_URL = "https://github.com/Sapair-og/CogniCode"
+
+# Theme colours, fonts and radius live in .streamlit/config.toml; this only adds the
+# trace, KPI and status components Streamlit has no widget for.
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 800;
-        background: linear-gradient(90deg, #1E88E5, #7E57C2);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.2rem;
-    }
-    .sub-header {
-        font-size: 1.05rem;
-        color: #757575;
-        margin-bottom: 1.5rem;
-    }
-    .metric-box {
-        background-color: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 8px;
-        padding: 16px 20px;
-        margin-bottom: 12px;
-    }
-    .metric-box h4 {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    .metric-box p {
-        margin-bottom: 6px;
-    }
-    .badge-critical { background-color: #b71c1c; color: #ffffff; padding: 4px 10px; border-radius: 4px; font-weight: bold; }
-    .badge-high { background-color: #e65100; color: #ffffff; padding: 4px 10px; border-radius: 4px; font-weight: bold; }
-    .badge-safe { background-color: #1b5e20; color: #ffffff; padding: 4px 10px; border-radius: 4px; font-weight: bold; }
-    .node-active {
-        padding: 8px 14px;
-        background-color: rgba(30, 136, 229, 0.15);
-        border-left: 4px solid #1e88e5;
-        border-radius: 4px;
-        margin-bottom: 6px;
-        font-family: monospace;
-        font-size: 0.9rem;
-    }
+:root {
+    --ink: #15171C; --muted: #5D6472; --faint: #8A909C; --line: #E2E5EA;
+    --surface: #FFFFFF; --canvas: #F5F6F8; --accent: #0B7A75; --accent-soft: #E3F2F1;
+    --pass: #1E8E4E; --pass-soft: #E4F4EA; --fail: #C93A2B; --fail-soft: #FBE9E6;
+    --warn: #A86400; --warn-soft: #FBF1DE;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+.block-container { padding-top: 1.6rem; max-width: 1440px; }
+.stTextArea textarea { font-family: var(--mono); font-size: 0.82rem; line-height: 1.6; }
+header[data-testid="stHeader"] { background: transparent; }
+
+.cc-brand { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; }
+.cc-brand svg { flex: none; }
+.cc-brand b { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
+.cc-brand span { display: block; color: var(--muted); font-size: 0.8rem; }
+
+.cc-topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.cc-crumbs { color: var(--muted); font-size: 0.86rem; }
+.cc-crumbs b { color: var(--ink); font-weight: 600; }
+.cc-crumbs i { font-style: normal; color: var(--faint); padding: 0 6px; }
+.cc-title { font-size: 1.45rem; font-weight: 600; letter-spacing: -0.015em; margin: 2px 0 0; }
+
+.cc-pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px;
+    font-size: 0.78rem; font-weight: 500; border: 1px solid transparent; white-space: nowrap; }
+.cc-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.cc-pill.pass { color: var(--pass); background: var(--pass-soft); }
+.cc-pill.fail { color: var(--fail); background: var(--fail-soft); }
+.cc-pill.warn { color: var(--warn); background: var(--warn-soft); }
+.cc-pill.idle { color: var(--muted); background: var(--canvas); border-color: var(--line); }
+.cc-pill.run  { color: var(--accent); background: var(--accent-soft); }
+.cc-pill.run::before { animation: cc-pulse 1.1s ease-in-out infinite; }
+@keyframes cc-pulse { 50% { opacity: 0.25; } }
+
+.cc-panel-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 8px; }
+.cc-panel-head h3 { font-size: 0.95rem; font-weight: 600; margin: 0; padding: 0; }
+.cc-panel-head span { color: var(--muted); font-size: 0.8rem; }
+
+/* Trace waterfall */
+.cc-trace { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.cc-trace-head, .cc-span { display: grid; grid-template-columns: minmax(150px, 1.25fr) 74px minmax(120px, 2fr) 64px;
+    align-items: center; gap: 12px; padding: 0 14px; }
+.cc-trace-head { height: 32px; font-size: 0.75rem; color: var(--faint); border-bottom: 1px solid var(--line); background: var(--canvas); }
+.cc-span { min-height: 44px; border-bottom: 1px solid var(--line); font-size: 0.86rem; }
+.cc-span:last-child { border-bottom: 0; }
+.cc-span .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cc-span .name b { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc-span .name small { display: block; color: var(--faint); font-size: 0.74rem; font-weight: 400; }
+.cc-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--line); }
+.cc-dot.ok { background: var(--accent); } .cc-dot.pass { background: var(--pass); }
+.cc-dot.fail { background: var(--fail); } .cc-dot.warn { background: var(--warn); }
+.cc-dot.live { background: var(--accent); animation: cc-pulse 1.1s ease-in-out infinite; }
+.cc-kind { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.cc-kind.llm { color: #6A3FB5; } .cc-kind.tool { color: #1F5FA8; }
+.cc-track { position: relative; height: 8px; background: var(--canvas); border-radius: 4px; }
+.cc-bar { position: absolute; top: 0; height: 8px; border-radius: 4px; background: var(--accent); min-width: 3px; }
+.cc-bar.llm { background: #8A63D2; } .cc-bar.tool { background: #3B7DD8; }
+.cc-bar.fail { background: var(--fail); } .cc-bar.pending { background: transparent; }
+.cc-dur { font-family: var(--mono); font-size: 0.78rem; text-align: right; color: var(--ink); }
+.cc-span.pending { color: var(--faint); }
+.cc-span.pending .cc-dur { color: var(--faint); }
+.cc-trace-note { padding: 12px 14px; color: var(--muted); font-size: 0.84rem; border-top: 1px solid var(--line); background: var(--canvas); }
+
+/* KPI strip */
+.cc-kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid var(--line);
+    border-radius: 8px; background: var(--surface); margin: 22px 0 6px; }
+.cc-kpi { padding: 14px 16px; border-left: 1px solid var(--line); min-width: 0; }
+.cc-kpi:first-child { border-left: 0; }
+.cc-kpi label { display: block; color: var(--muted); font-size: 0.78rem; margin-bottom: 4px; }
+.cc-kpi div { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc-kpi small { display: block; color: var(--faint); font-size: 0.76rem; margin-top: 2px; }
+.cc-kpi .mono { font-family: var(--mono); font-weight: 500; }
+
+/* Findings */
+.cc-card { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 16px 18px; height: 100%; }
+.cc-card h4 { font-size: 0.92rem; font-weight: 600; margin: 0 0 12px; padding: 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.cc-card p { color: var(--ink); font-size: 0.88rem; line-height: 1.55; margin: 12px 0 0; }
+.cc-rows { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: 0.86rem; }
+.cc-card dl.cc-rows { margin: 0; padding: 0; }
+.cc-card .cc-rows dt { color: var(--muted); font-size: 0.86rem; font-weight: 400; margin: 0; padding: 0; line-height: 1.5; }
+.cc-card .cc-rows dd { margin: 0; padding: 0; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; }
+.cc-bigo { display: flex; align-items: baseline; gap: 10px; font-family: var(--mono); font-size: 1.15rem; margin-bottom: 4px; }
+.cc-bigo s { color: var(--fail); text-decoration-thickness: 1px; }
+.cc-bigo b { color: var(--pass); font-weight: 500; }
+
+.cc-empty { border: 1px dashed var(--line); border-radius: 8px; padding: 28px; color: var(--muted); text-align: center; font-size: 0.9rem; }
+.cc-side-label { color: var(--muted); font-size: 0.78rem; font-weight: 500; margin: 14px 0 2px; }
+.cc-gw { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
+.cc-gw b { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 900px) {
+    .cc-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cc-kpi:nth-child(odd) { border-left: 0; }
+    .cc-kpi:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .cc-trace-head, .cc-span { grid-template-columns: minmax(120px, 1fr) 64px 56px; }
+    .cc-trace-head > :nth-child(3), .cc-span > .cc-track { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cc-pill.run::before, .cc-dot.live { animation: none; }
+}
 </style>
 """, unsafe_allow_html=True)
 
-# App Title
-st.markdown('<div class="main-header">🛡️ CogniCode Engine</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Autonomous Multi-Agent Code Remediation & Test-Driven Self-Healing (LangGraph • Symbolic AST • FAISS Memory • GitHub)</div>', unsafe_allow_html=True)
+# Graph node -> (label, what it does, kind). Kind drives the trace colour, like a
+# Langfuse span vs generation.
+STEPS = {
+    "retrieve_memory": ("Memory lookup", "FAISS pattern bank + triage", "retrieval"),
+    "symbolic_ast": ("AST analysis", "ast parser, cache check", "tool"),
+    "security_audit": ("Security audit", "CWE / OWASP classification", "llm"),
+    "complexity_profiler": ("Complexity profile", "Big-O before and after", "llm"),
+    "patch_synthesizer": ("Patch and tests", "writes fix + pytest suite", "llm"),
+    "sandbox_verifier": ("Sandbox run", "pytest with timeout", "tool"),
+    "self_healing_reflection": ("Self-repair", "reads failure, rewrites patch", "llm"),
+    "git_pr": ("Pull request draft", "diff, branch, PR body", "tool"),
+}
+HAPPY_PATH = ["retrieve_memory", "symbolic_ast", "security_audit", "complexity_profiler",
+              "patch_synthesizer", "sandbox_verifier", "git_pr"]
 
-# Sidebar Configuration
-with st.sidebar:
-    st.header("⚙️ Agent & Model Controls")
-    
-    provider = st.selectbox(
-        "LLM Provider",
-        ["OpenAI", "Groq"],
-        index=0,
-        help="Select OpenAI (gpt-4o-mini) or Groq (llama-3.3-70b-versatile)"
-    )
-    
-    if provider == "OpenAI":
-        env_openai_key = os.getenv("OPENAI_API_KEY", "")
-        api_key_input = st.text_input(
-            "OpenAI API Key",
-            value=env_openai_key,
-            type="password",
-            help="Your OpenAI API Key. Loaded automatically from .env."
-        )
-        if env_openai_key:
-            st.caption("✅ Loaded from `.env`")
-        selected_model = st.selectbox("Model", ["gpt-4o-mini", "gpt-4o"], index=0)
-    else:
-        env_groq_key = os.getenv("GROQ_API_KEY", "")
-        api_key_input = st.text_input(
-            "Groq API Key",
-            value=env_groq_key,
-            type="password",
-            help="Your Groq API Key. Loaded automatically from .env."
-        )
-        if env_groq_key:
-            st.caption("✅ Loaded from `.env`")
-        selected_model = st.selectbox("Model", ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"], index=0)
-        
-    max_retries = st.slider("Max Self-Healing Retries", min_value=1, max_value=5, value=3)
-    
-    st.markdown("---")
-    st.subheader("⚡ TypeSafe AI (Jev System One)")
-    env_typesafe_key = os.getenv("TYPESAFE_API_KEY", "") or os.getenv("JEV_API_KEY", "")
-    typesafe_api_key_input = st.text_input(
-        "TypeSafe AI Key (Jev)",
-        value=env_typesafe_key,
-        type="password",
-        help="API Key for Jev by TypeSafe AI. Loaded automatically from .env."
-    )
-    if env_typesafe_key:
-        st.caption("✅ Loaded from `.env`")
-    else:
-        st.caption("💡 Optional: runs fast calibrated evaluator if omitted.")
-    st.subheader("🐙 GitHub Integration")
-    env_gh_token = os.getenv("GITHUB_TOKEN", "")
-    github_token = st.text_input(
-        "GitHub Token (Optional)",
-        value=env_gh_token,
-        type="password",
-        help="Personal Access Token to open live PRs. Loaded automatically from .env."
-    )
-    if env_gh_token:
-        st.caption("✅ Loaded from `.env`")
-        
-    env_gh_repo = os.getenv("GITHUB_REPOSITORY", "")
-    github_repo = st.text_input(
-        "GitHub Repo (e.g. user/repo)",
-        value=env_gh_repo,
-        placeholder="Sapair-og/CogniCode"
-    )
-    if env_gh_repo:
-        st.caption(f"✅ Target repo: `{env_gh_repo}`")
-    
-    st.markdown("---")
-    st.subheader("🛡️ Enterprise LLM Gateway")
-    from src.gateway import llm_gateway
-    gw_health = llm_gateway.get_gateway_health()
-    st.caption(f"**Route:** `{gw_health['primary_route']}`")
-    st.caption(f"**Fallback:** `{gw_health['fallback_route']}` | Status: `{gw_health['status']}`")
 
-    st.markdown("---")
-    st.markdown("""
-    **Architecture Highlights:**
-    - ⚡ **TypeSafe Jev:** Sub-second System-One triage
-    - 🛡️ **LLM Gateway:** Resilient multi-provider failover
-    - 🔍 **Symbolic AST:** Deterministic Python parser
-    - 🧠 **Episodic Memory:** FAISS CWE/OWASP patterns
-    - 🧪 **Sandbox:** Isolated Pytest runner
-    - 🔄 **Cyclic Graph:** Self-healing reflection loop
-    - ⚡ **AST Cache:** 100% token savings on repeat runs
-    - 🕸️ **Graphify:** Queryable graphical codebase memory
-    """)
-    
-    st.markdown("---")
-    st.subheader("🕸️ Project Graph Memory")
-    st.caption("Explore repository architecture & dependencies.")
-    show_graph_standalone = st.checkbox("Show Interactive Graph", value=False)
+def esc(value) -> str:
+    return html.escape(str(value))
+
+
+def as_dict(value) -> dict:
+    """LLM nodes occasionally return a one-item list instead of a dict."""
+    if isinstance(value, list):
+        value = value[0] if value else {}
+    return value if isinstance(value, dict) else {}
+
+
+def pill(text: str, tone: str) -> str:
+    return f'<span class="cc-pill {tone}">{esc(text)}</span>'
+
+
+def fmt_ms(seconds: float) -> str:
+    return f"{seconds * 1000:.0f} ms" if seconds < 1 else f"{seconds:.2f} s"
+
+
+def span_tone(span: dict) -> str:
+    if span.get("error"):
+        return "fail"
+    if span["node"] == "sandbox_verifier":
+        return "pass" if span.get("passed") else "fail"
+    if span["node"] == "symbolic_ast" and span.get("cache_hit"):
+        return "pass"
+    return "ok"
+
+
+def render_trace(spans: list, running: bool = False, note: str = "") -> str:
+    total = max(sum(s["dur"] for s in spans), 1e-6)
+    rows = []
+    for s in spans:
+        label, desc, kind = STEPS.get(s["node"], (s["node"], "", "tool"))
+        tone = span_tone(s)
+        if s["node"] == "sandbox_verifier":
+            desc = "tests passed" if s.get("passed") else "tests failed"
+        if s["node"] == "symbolic_ast" and s.get("cache_hit"):
+            desc = "cache hit, LLM steps skipped"
+        left = s["start"] / total * 100
+        width = s["dur"] / total * 100
+        bar_cls = "fail" if tone == "fail" else kind
+        rows.append(
+            f'<div class="cc-span"><div class="name"><span class="cc-dot {tone}"></span>'
+            f'<div><b>{esc(label)}</b><small>{esc(desc)}</small></div></div>'
+            f'<span class="cc-kind {kind}">{kind}</span>'
+            f'<div class="cc-track"><div class="cc-bar {bar_cls}" style="left:{left:.2f}%;width:{width:.2f}%"></div></div>'
+            f'<span class="cc-dur">{fmt_ms(s["dur"])}</span></div>'
+        )
+    if running:
+        rows.append(
+            '<div class="cc-span pending"><div class="name"><span class="cc-dot live"></span>'
+            '<div><b>Running next step</b><small>waiting for the agent</small></div></div>'
+            '<span class="cc-kind"></span><div class="cc-track"></div><span class="cc-dur">…</span></div>'
+        )
+    if not spans and not running:
+        for node in HAPPY_PATH:
+            label, desc, kind = STEPS[node]
+            rows.append(
+                f'<div class="cc-span pending"><div class="name"><span class="cc-dot"></span>'
+                f'<div><b>{esc(label)}</b><small>{esc(desc)}</small></div></div>'
+                f'<span class="cc-kind {kind}">{kind}</span><div class="cc-track"></div>'
+                f'<span class="cc-dur">–</span></div>'
+            )
+    note_html = f'<div class="cc-trace-note">{note}</div>' if note else ""
+    return (
+        '<div class="cc-trace"><div class="cc-trace-head"><span>Step</span><span>Type</span>'
+        '<span>Timeline</span><span style="text-align:right">Duration</span></div>'
+        + "".join(rows) + "</div>" + note_html
+    )
+
 
 # Load Presets
 PRESETS = {
-    "CWE-89: SQL Injection Vulnerability": (
+    "SQL injection (CWE-89)": (
         "import sqlite3\n\n"
         "def authenticate_user(username: str, password_hash: str) -> dict:\n"
         "    \"\"\"\n"
@@ -178,7 +233,7 @@ PRESETS = {
         "        return {'id': row[0], 'username': row[1], 'role': row[2]}\n"
         "    return None\n"
     ),
-    "CWE-400: Exponential O(2^N) Algorithmic Bottleneck": (
+    "Exponential recursion, O(2^N) (CWE-400)": (
         "def compute_nth_fibonacci(n: int) -> int:\n"
         "    \"\"\"\n"
         "    PERFORMANCE BOTTLENECK: Binary recursion with O(2^N) time complexity (CWE-400).\n"
@@ -189,7 +244,7 @@ PRESETS = {
         "        return n\n"
         "    return compute_nth_fibonacci(n - 1) + compute_nth_fibonacci(n - 2)\n"
     ),
-    "Hybrid: O(N^2) Two-Sum Bottleneck + CWE-89 SQLi": (
+    "O(N^2) two-sum plus SQL injection": (
         "import sqlite3\n\n"
         "def detect_fraudulent_pair(transactions: list, target_anomaly: int, account_id: str) -> list:\n"
         "    \"\"\"\n"
@@ -212,7 +267,7 @@ PRESETS = {
         "    conn.close()\n\n"
         "    return matched_pair\n"
     ),
-    "CWE-476: NoneType Null Pointer Crash": (
+    "Null dereference (CWE-476)": (
         "def extract_user_contact_info(payload: dict) -> str:\n"
         "    \"\"\"\n"
         "    VULNERABILITY: Chained access without null safety causes fatal NoneType crash (CWE-476).\n"
@@ -223,365 +278,407 @@ PRESETS = {
         "    secondary_email = contacts['secondary_email']\n"
         "    return secondary_email.strip().lower()\n"
     ),
-    "Custom Python Input": ""
+    "Your own code": "def example():\n    pass\n",
 }
 
-# Main Workspace
-col_left, col_right = st.columns([1, 1], gap="large")
+# ---------------------------------------------------------------- sidebar
+BRAND_MARK = (
+    '<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">'
+    '<rect width="26" height="26" rx="6" fill="#0B7A75"/>'
+    '<path d="M7.5 13.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.2" '
+    'stroke-linecap="round" stroke-linejoin="round"/></svg>'
+)
+
+with st.sidebar:
+    st.markdown(
+        f'<div class="cc-brand">{BRAND_MARK}<div><b>CogniCode</b>'
+        '<span>Finds, fixes and tests Python bugs</span></div></div>',
+        unsafe_allow_html=True,
+    )
+    page = st.segmented_control(
+        "Page", ["Playground", "Knowledge graph"], default="Playground",
+        label_visibility="collapsed", width="stretch",
+    ) or "Playground"
+
+    st.markdown('<div class="cc-side-label">Model</div>', unsafe_allow_html=True)
+    provider = st.selectbox(
+        "Provider", ["OpenAI", "Groq"], index=0,
+        help="Groq has a free tier: console.groq.com/keys",
+    )
+    env_key_name = "OPENAI_API_KEY" if provider == "OpenAI" else "GROQ_API_KEY"
+    env_key = os.getenv(env_key_name, "").strip()
+    # Never echo a server-side key into the page: password inputs still send their value
+    # to the browser. The server key is only used as a fallback when this field is empty.
+    api_key_input = st.text_input(
+        f"{provider} API key", type="password",
+        placeholder="Using the server key" if env_key else "Paste your key",
+        help="Used for this session only and never stored.",
+    )
+    if provider == "OpenAI":
+        selected_model = st.selectbox("Model", ["gpt-4o-mini", "gpt-4o"], index=0)
+    else:
+        selected_model = st.selectbox("Model", ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"], index=0)
+
+    max_retries = st.slider("Self-repair attempts", min_value=1, max_value=5, value=3,
+                            help="How many times the agent may rewrite a patch whose tests fail.")
+
+    with st.expander("Integrations"):
+        env_typesafe_key = os.getenv("TYPESAFE_API_KEY", "") or os.getenv("JEV_API_KEY", "")
+        typesafe_api_key_input = st.text_input(
+            "TypeSafe Jev key", type="password",
+            placeholder="Using the server key" if env_typesafe_key else "Optional",
+            help="Fast pre-LLM risk triage. Without a key a local evaluator runs instead.",
+        )
+        env_gh_token = os.getenv("GITHUB_TOKEN", "").strip()
+        github_token_input = st.text_input(
+            "GitHub token", type="password",
+            placeholder="Using the server token" if env_gh_token else "Optional, to open real PRs",
+        )
+        github_token = (github_token_input or "").strip() or env_gh_token
+        github_repo = st.text_input("GitHub repo", value=os.getenv("GITHUB_REPOSITORY", ""),
+                                    placeholder="owner/repo")
+
+    from src.gateway import llm_gateway
+    gw_health = llm_gateway.get_gateway_health()
+    has_key = bool((api_key_input or "").strip() or env_key)
+    gw_tone = "pass" if has_key else "warn"
+    gw_text = "Ready" if has_key else "Needs a key"
+    st.markdown('<div class="cc-side-label">Gateway</div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="cc-gw">{pill(gw_text, gw_tone)}<span>Fallback: <b>{esc(gw_health["fallback_route"])}</b></span></div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(f'<div class="cc-side-label"><a href="{REPO_URL}" target="_blank">Source on GitHub</a></div>',
+                unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------------- knowledge graph page
+def knowledge_graph_page():
+    graph_html_path = os.path.join(GRAPH_DIR, "graph.html")
+    graph_json_path = os.path.join(GRAPH_DIR, "graph.json")
+    graph_report_path = os.path.join(GRAPH_DIR, "GRAPH_REPORT.md")
+
+    st.markdown(
+        '<div class="cc-topbar"><div><div class="cc-crumbs">CogniCode<i>/</i><b>Knowledge graph</b></div>'
+        '<div class="cc-title">How this repository fits together</div></div></div>',
+        unsafe_allow_html=True,
+    )
+    st.caption("Modules, classes and functions extracted from the AST by graphify_engine.py. "
+               "A compact summary of it is added to agent prompts.")
+
+    a1, a2, a3, _ = st.columns([1.2, 1.2, 1.4, 3])
+    with a1:
+        if st.button("Rebuild graph", icon=":material/refresh:", width="stretch"):
+            import subprocess
+            with st.spinner("Rebuilding from the AST..."):
+                subprocess.run([sys.executable, "graphify_engine.py"], capture_output=True, cwd=ROOT)
+            st.toast("Graph rebuilt")
+            st.rerun()
+    with a2:
+        if os.path.exists(graph_json_path):
+            with open(graph_json_path, "r", encoding="utf-8") as f:
+                st.download_button("graph.json", f.read(), file_name="graph.json",
+                                   mime="application/json", icon=":material/download:", width="stretch")
+    with a3:
+        if os.path.exists(graph_report_path):
+            with open(graph_report_path, "r", encoding="utf-8") as f:
+                st.download_button("GRAPH_REPORT.md", f.read(), file_name="GRAPH_REPORT.md",
+                                   mime="text/markdown", icon=":material/download:", width="stretch")
+
+    if os.path.exists(graph_html_path):
+        import streamlit.components.v1 as components
+        with open(graph_html_path, "r", encoding="utf-8") as f:
+            components.html(f.read(), height=720, scrolling=True)
+    else:
+        st.markdown('<div class="cc-empty">No graph yet. Press <b>Rebuild graph</b> to generate it.</div>',
+                    unsafe_allow_html=True)
+
+    if os.path.exists(graph_report_path):
+        with st.expander("Summary given to the agents"):
+            with open(graph_report_path, "r", encoding="utf-8") as f:
+                st.code(f.read()[:2000], language="markdown")
+
+
+if page == "Knowledge graph":
+    knowledge_graph_page()
+    st.stop()
+
+
+# ---------------------------------------------------------------- playground page
+result = st.session_state.get("cognicode_result")
+
+top_left, top_right = st.columns([3, 1], vertical_alignment="bottom")
+with top_left:
+    title_ph = st.empty()
+with top_right:
+    status_ph = st.empty()
+
+
+def render_topbar(status: str, tone: str):
+    run_id = st.session_state.get("cognicode_run_id")
+    crumb = f"Run {esc(run_id)}" if run_id else "New run"
+    title_ph.markdown(
+        f'<div class="cc-crumbs">CogniCode<i>/</i>Playground<i>/</i><b>{crumb}</b></div>'
+        '<div class="cc-title">Find, fix and verify a Python function</div>',
+        unsafe_allow_html=True,
+    )
+    status_ph.markdown(f'<div style="text-align:right">{pill(status, tone)}</div>', unsafe_allow_html=True)
+
+
+if result:
+    verified = result.get("status") == "verified"
+    render_topbar("Verified" if verified else "Needs review", "pass" if verified else "warn")
+else:
+    render_topbar("Idle", "idle")
+st.markdown('<div class="cc-topbar"></div>', unsafe_allow_html=True)
+
+col_left, col_right = st.columns([5, 6], gap="large")
 
 with col_left:
-    st.subheader("📝 Input Source Code")
-    preset_choice = st.selectbox("Select Preset Demo or Custom", list(PRESETS.keys()))
-    
-    default_code = PRESETS[preset_choice] if preset_choice != "Custom Python Input" else "def example():\n    pass\n"
+    st.markdown('<div class="cc-panel-head"><h3>Source</h3><span>solution.py</span></div>', unsafe_allow_html=True)
+    preset_choice = st.selectbox("Sample", list(PRESETS.keys()), label_visibility="collapsed")
     code_input = st.text_area(
-        "Source Code to Remediate",
-        value=default_code,
-        height=320,
-        help="Paste any Python function to analyze and remediate."
+        "Python source", value=PRESETS[preset_choice], height=360,
+        label_visibility="collapsed", key=f"code_{preset_choice}",
+        help="Paste one Python file. Functions are analysed, patched and tested on their own.",
     )
-    
-    run_btn = st.button("🚀 Run Autonomous Remediation", type="primary", use_container_width=True)
+    run_btn = st.button("Run agents", type="primary", icon=":material/play_arrow:", width="stretch")
+    if not has_key:
+        st.caption(f"Add {'an' if provider == 'OpenAI' else 'a'} {provider} API key in the sidebar to run. Groq keys are free.")
 
 with col_right:
-    st.subheader("⚡ Live Multi-Agent Execution Visualizer")
-    status_placeholder = st.empty()
-    progress_bar = st.empty()
-    steps_container = st.container()
+    head_ph = st.empty()
+    trace_ph = st.empty()
 
-# Standalone Graph Viewer (if toggled before running)
-if show_graph_standalone and "cognicode_result" not in st.session_state and not run_btn:
-    st.markdown("---")
-    st.subheader("🕸️ Project Knowledge Graph (Graphify Memory)")
-    st.caption("Interactive queryable architecture map of all modules, classes, functions, and state dependencies.")
-    graph_html_path = os.path.join(os.path.dirname(__file__), "graphify-out", "graph.html")
-    if os.path.exists(graph_html_path):
-        with open(graph_html_path, "r", encoding="utf-8") as f:
-            html_data = f.read()
-        import streamlit.components.v1 as components
-        components.html(html_data, height=720, scrolling=True)
 
-# Execution Logic
+def show_trace_head(meta: str):
+    head_ph.markdown(f'<div class="cc-panel-head"><h3>Trace</h3><span>{meta}</span></div>', unsafe_allow_html=True)
+
+
+if result:
+    spans = st.session_state.get("cognicode_spans", [])
+    total = sum(s["dur"] for s in spans)
+    show_trace_head(f"{len(spans)} steps, {fmt_ms(total)}")
+    trace_ph.markdown(render_trace(spans), unsafe_allow_html=True)
+else:
+    show_trace_head("not run yet")
+    trace_ph.markdown(
+        render_trace([], note="Pick a sample and press <b>Run agents</b>. Each step shows up here as it finishes, "
+                              "with its duration. Failed tests loop through self-repair before the PR draft."),
+        unsafe_allow_html=True,
+    )
+
+# ---------------------------------------------------------------- run
 if run_btn:
-    effective_key = (api_key_input or "").strip() or (os.getenv("OPENAI_API_KEY", "") if provider == "OpenAI" else os.getenv("GROQ_API_KEY", ""))
+    effective_key = (api_key_input or "").strip() or env_key
     if not effective_key:
-        st.error(f"Please provide an API key for {provider} in the sidebar or in your .env file.")
-    elif not code_input.strip():
-        st.warning("Please provide Python source code to analyze.")
+        st.error(f"No {provider} API key. Paste one in the sidebar under Model, then run again.")
+        st.stop()
+    if not code_input.strip():
+        st.error("The source is empty. Paste a Python function or pick a sample.")
+        st.stop()
+
+    os.environ[env_key_name] = effective_key
+    if typesafe_api_key_input and typesafe_api_key_input.strip():
+        os.environ["TYPESAFE_API_KEY"] = typesafe_api_key_input.strip()
+        from src.jev_client import jev_client
+        jev_client.api_key = typesafe_api_key_input.strip()
+
+    from src.config import get_llm
+    from src.nodes import set_runtime_llm
+    from src.graph import cognicode_graph
+    from src.state import AgentState
+
+    try:
+        runtime_llm = get_llm(provider=provider.lower(), model_name=selected_model,
+                              api_key=effective_key, temperature=0.1)
+        set_runtime_llm(llm_gateway.with_runtime_failover(runtime_llm, provider.lower(), 0.1))
+    except Exception as e:
+        st.error(f"Could not start the {provider} model: {e}")
+        st.stop()
+
+    initial_state: AgentState = {
+        "source_code": code_input,
+        "filename": "solution.py",
+        "language": "python",
+        "ast_analysis": {},
+        "retrieved_patterns": [],
+        "security_report": {},
+        "complexity_report": {},
+        "quality_report": {},
+        "candidate_patch": code_input,
+        "test_code": "",
+        "test_result": {},
+        "retry_count": 0,
+        "max_retries": max_retries,
+        "git_branch": "",
+        "git_diff": "",
+        "commit_message": "",
+        "pr_title": "",
+        "pr_body": "",
+        "pr_url": None,
+        "status": "analyzing",
+        "node_history": [],
+        "cache_hit": False,
+        "cost_metrics": {},
+        "jev_triage": {}
+    }
+
+    st.session_state["cognicode_run_id"] = format(int(time.time() * 1000) % 0xFFFFFF, "06x")
+    render_topbar("Running", "run")
+    state = dict(initial_state)
+    spans = []
+    t0 = last = time.perf_counter()
+    trace_ph.markdown(render_trace(spans, running=True), unsafe_allow_html=True)
+
+    # Stream node-by-node so the trace fills in live. Nodes return partial state, and the
+    # graph has no reducers, so merging updates in order rebuilds the final state.
+    try:
+        for chunk in cognicode_graph.stream(initial_state, stream_mode="updates"):
+            for node, update in chunk.items():
+                now = time.perf_counter()
+                update = update or {}
+                state.update(update)
+                span = {"node": node, "start": last - t0, "dur": now - last}
+                if node == "sandbox_verifier":
+                    span["passed"] = bool(as_dict(update.get("test_result")).get("passed"))
+                if node == "symbolic_ast":
+                    span["cache_hit"] = bool(update.get("cache_hit"))
+                spans.append(span)
+                last = now
+            show_trace_head(f"{len(spans)} steps, {fmt_ms(last - t0)}")
+            trace_ph.markdown(render_trace(spans, running=True), unsafe_allow_html=True)
+    except Exception as e:
+        spans.append({"node": "error", "start": last - t0, "dur": time.perf_counter() - last, "error": True})
+        trace_ph.markdown(render_trace(spans), unsafe_allow_html=True)
+        render_topbar("Failed", "fail")
+        st.error(f"The run stopped: {e}")
+        st.stop()
+
+    st.session_state["cognicode_result"] = state
+    st.session_state["cognicode_spans"] = spans
+    st.rerun()
+
+# ---------------------------------------------------------------- results
+if not result:
+    st.stop()
+
+res = result
+sec = as_dict(res.get("security_report"))
+comp = as_dict(res.get("complexity_report"))
+test = as_dict(res.get("test_result"))
+cost_info = as_dict(res.get("cost_metrics"))
+jev = as_dict(res.get("jev_triage"))
+is_hit = res.get("cache_hit", False)
+verified = res.get("status") == "verified"
+spans = st.session_state.get("cognicode_spans", [])
+retries = res.get("retry_count", 0)
+
+kpis = [
+    ("Outcome", "Verified" if verified else "Needs review",
+     "tests pass on the patch" if verified else "tests still fail, flagged in PR"),
+    ("Latency", f'<span class="mono">{fmt_ms(sum(s["dur"] for s in spans))}</span>', f"{len(spans)} steps"),
+    ("Tokens", f'<span class="mono">{cost_info.get("total_tokens", 0):,}</span>',
+     "served from cache" if is_hit else f'{cost_info.get("prompt_tokens", 0):,} in, {cost_info.get("completion_tokens", 0):,} out'),
+    ("Cost", f'<span class="mono">${cost_info.get("cost_usd", 0.0):.4f}</span>',
+     f'saved ${cost_info.get("savings_usd", 0.0):.4f}' if is_hit else "this run"),
+    ("Self-repair", f'<span class="mono">{retries} / {res.get("max_retries", 3)}</span>',
+     "first patch passed" if retries == 0 and verified else "patch rewrites"),
+    ("Sandbox", f'<span class="mono">{esc(test.get("duration_seconds", 0))} s</span>',
+     "pytest " + ("passed" if test.get("passed") else "failed")),
+]
+st.markdown(
+    '<div class="cc-kpis">' + "".join(
+        f'<div class="cc-kpi"><label>{esc(k)}</label><div>{v}</div><small>{esc(s)}</small></div>' for k, v, s in kpis
+    ) + "</div>",
+    unsafe_allow_html=True,
+)
+
+tab_overview, tab_diff, tab_test, tab_pr, tab_state = st.tabs(
+    ["Findings", "Patch", "Tests", "Pull request", "State"]
+)
+
+with tab_overview:
+    c1, c2 = st.columns(2, gap="medium")
+    sev = str(sec.get("severity", "MEDIUM")).upper()
+    sev_tone = "fail" if sev in ("CRITICAL", "HIGH") else ("warn" if sev == "MEDIUM" else "pass")
+    with c1:
+        st.markdown(
+            f'<div class="cc-card"><h4>Security {pill(sev.title(), sev_tone)}</h4>'
+            f'<dl class="cc-rows"><dt>Weakness</dt><dd>{esc(sec.get("cwe_id", "None found"))}</dd>'
+            f'<dt>OWASP</dt><dd>{esc(sec.get("owasp_category", "n/a"))}</dd></dl>'
+            f'<p>{esc(sec.get("explanation", "No security issue found."))}</p></div>',
+            unsafe_allow_html=True,
+        )
+    t_before, t_after = comp.get("time_before", "n/a"), comp.get("time_after", "n/a")
+    if t_before != t_after:
+        bigo = f'<div class="cc-bigo"><s>{esc(t_before)}</s><span>to</span><b>{esc(t_after)}</b></div>'
     else:
-        # Configure runtime environment
-        if provider == "OpenAI":
-            os.environ["OPENAI_API_KEY"] = effective_key
-        else:
-            os.environ["GROQ_API_KEY"] = effective_key
-            
-        # Configure TypeSafe Jev API Key if provided
-        if typesafe_api_key_input and typesafe_api_key_input.strip():
-            os.environ["TYPESAFE_API_KEY"] = typesafe_api_key_input.strip()
-            from src.jev_client import jev_client
-            jev_client.api_key = typesafe_api_key_input.strip()
-            
-        from src.config import get_llm
-        from src.nodes import set_runtime_llm
-        from src.gateway import llm_gateway
-        from src.graph import cognicode_graph
-        from src.state import AgentState
-        
-        try:
-            runtime_llm = get_llm(
-                provider=provider.lower(),
-                model_name=selected_model,
-                api_key=effective_key,
-                temperature=0.1
-            )
-            set_runtime_llm(llm_gateway.with_runtime_failover(runtime_llm, provider.lower(), 0.1))
-        except Exception as e:
-            st.error(f"Failed to initialize LLM: {str(e)}")
-            st.stop()
-            
-        # Initialize State
-        initial_state: AgentState = {
-            "source_code": code_input,
-            "filename": "solution.py",
-            "language": "python",
-            "ast_analysis": {},
-            "retrieved_patterns": [],
-            "security_report": {},
-            "complexity_report": {},
-            "quality_report": {},
-            "candidate_patch": code_input,
-            "test_code": "",
-            "test_result": {},
-            "retry_count": 0,
-            "max_retries": max_retries,
-            "git_branch": "",
-            "git_diff": "",
-            "commit_message": "",
-            "pr_title": "",
-            "pr_body": "",
-            "pr_url": None,
-            "status": "analyzing",
-            "node_history": [],
-            "cache_hit": False,
-            "cost_metrics": {},
-            "jev_triage": {}
-        }
-        
-        status_placeholder.info("⏳ Initializing CogniCode state machine...")
-        progress_bar.progress(10)
-        
-        # Stream or invoke graph
-        with st.spinner("Multi-Agent team is analyzing, synthesizing tests, and running sandbox..."):
-            final_state = cognicode_graph.invoke(initial_state)
-            
-        progress_bar.progress(100)
-        status_placeholder.success(f"✨ Workflow Complete! Status: {final_state.get('status', 'verified').upper()}")
-        
-        # Display Execution History in right column
-        with steps_container:
-            for step in final_state.get("node_history", []):
-                st.markdown(f'<div class="node-active">✓ {step}</div>', unsafe_allow_html=True)
-                
-        # Store in session state for results tab rendering
-        st.session_state["cognicode_result"] = final_state
+        bigo = f'<div class="cc-bigo"><span>{esc(t_after)}</span></div>'
+    with c2:
+        st.markdown(
+            f'<div class="cc-card"><h4>Performance</h4>'
+            f'{bigo}'
+            f'<dl class="cc-rows"><dt>Space</dt><dd>{esc(comp.get("space_before", "n/a"))} to {esc(comp.get("space_after", "n/a"))}</dd></dl>'
+            f'<p>{esc(comp.get("analysis") or comp.get("improvement") or "No bottleneck found.")}</p></div>',
+            unsafe_allow_html=True,
+        )
+    if jev:
+        r_score = jev.get("risk_score", 0)
+        r_tone = "fail" if r_score >= 6 else ("warn" if r_score >= 4 else "pass")
+        source = "TypeSafe Jev API" if jev.get("live_api") else "local evaluator"
+        st.markdown(
+            f'<div class="cc-card" style="margin-top:14px"><h4>Pre-LLM triage {pill(f"Risk {r_score}/10", r_tone)}</h4>'
+            f'<dl class="cc-rows"><dt>Verdict</dt><dd>{"vulnerable" if jev.get("has_vulnerability") else "clean"} '
+            f'({int(jev.get("vuln_confidence", 0.9) * 100)}% confidence)</dd>'
+            f'<dt>Class</dt><dd>{esc(jev.get("cwe_choice", "n/a"))}, {esc(jev.get("complexity_choice", "n/a"))}</dd>'
+            f'<dt>Latency</dt><dd>{esc(jev.get("latency_ms", 0))} ms via {source}</dd></dl></div>',
+            unsafe_allow_html=True,
+        )
 
-# Display Results Section if Available
-if "cognicode_result" in st.session_state:
-    res = st.session_state["cognicode_result"]
-    sec = res.get("security_report", {})
-    if isinstance(sec, list):
-        sec = sec[0] if len(sec) > 0 else {}
-    elif not isinstance(sec, dict):
-        sec = {}
+with tab_diff:
+    st.markdown('<div class="cc-panel-head"><h3>Unified diff</h3><span>apply with git apply</span></div>', unsafe_allow_html=True)
+    st.code(res.get("git_diff") or "No changes.", language="diff")
+    st.markdown('<div class="cc-panel-head"><h3>Patched file</h3><span>solution.py</span></div>', unsafe_allow_html=True)
+    st.code(res.get("candidate_patch", ""), language="python")
 
-    comp = res.get("complexity_report", {})
-    if isinstance(comp, list):
-        comp = comp[0] if len(comp) > 0 else {}
-    elif not isinstance(comp, dict):
-        comp = {}
+with tab_test:
+    st.markdown(
+        f'<div class="cc-panel-head"><h3>Generated tests</h3>{pill("Passed" if test.get("passed") else "Failed", "pass" if test.get("passed") else "fail")}</div>',
+        unsafe_allow_html=True,
+    )
+    st.code(res.get("test_code") or "# No tests generated", language="python")
+    st.markdown('<div class="cc-panel-head"><h3>pytest output</h3></div>', unsafe_allow_html=True)
+    st.code(test.get("stdout") or test.get("stderr") or "No output captured.", language="text")
 
-    test = res.get("test_result", {})
-    if isinstance(test, list):
-        test = test[0] if len(test) > 0 else {}
-    elif not isinstance(test, dict):
-        test = {}
-    
-    st.markdown("---")
-    st.subheader("📋 Autonomous Remediation & Verification Report")
-    
-    tab_overview, tab_diff, tab_test, tab_pr, tab_state, tab_graph = st.tabs([
-        "📊 Code Health & Cost Audit",
-        "🔄 Side-by-Side Git Diff",
-        "🧪 Pytest Sandbox Terminal",
-        "🐙 GitHub Pull Request",
-        "🧩 LangGraph State Inspector",
-        "🕸️ Project Graph Memory (Graphify)"
-    ])
-    
-    with tab_overview:
-        # Cost & Token Optimization Banner
-        cost_info = res.get("cost_metrics", {})
-        is_hit = res.get("cache_hit", False)
-        
-        st.markdown("#### 💰 API Cost & Token Economics (Enterprise Optimization)")
-        cc1, cc2, cc3, cc4 = st.columns(4)
-        with cc1:
-            st.metric(
-                label="Total Tokens Billed",
-                value=f"{cost_info.get('total_tokens', 0):,}",
-                delta="⚡ 0 tokens (Cached)" if is_hit else f"{cost_info.get('prompt_tokens', 0)} in / {cost_info.get('completion_tokens', 0)} out",
-                delta_color="inverse" if is_hit else "normal"
-            )
-        with cc2:
-            st.metric(
-                label="Workflow Cost (USD)",
-                value=f"${cost_info.get('cost_usd', 0.0):.5f}",
-                delta="100% Free" if is_hit else "gpt-4o-mini tier",
-                delta_color="normal"
-            )
-        with cc3:
-            status_txt = "⚡ 100% CACHE HIT" if is_hit else "🔄 FRESH AUDIT"
-            st.metric(
-                label="Cache Acceleration",
-                value=status_txt,
-                delta="Bypassed LLMs" if is_hit else "Saved in Disk Cache",
-                delta_color="normal" if is_hit else "off"
-            )
-        with cc4:
-            st.metric(
-                label="Cost Savings (USD)",
-                value=f"${cost_info.get('savings_usd', 0.0):.5f}" if is_hit else "$0.00000",
-                delta=f"+{cost_info.get('tokens_saved', 0):,} tokens saved" if is_hit else "Baseline run",
-                delta_color="normal" if is_hit else "off"
-            )
-
-        # TypeSafe AI Jev (System One) Fast Decision Card
-        jev = res.get("jev_triage", {})
-        if jev:
-            st.markdown("#### ⚡ TypeSafe AI: Jev (System One Fast Triage Engine)")
-            jc1, jc2, jc3, jc4 = st.columns(4)
-            with jc1:
-                r_score = jev.get('risk_score', 0)
-                st.metric(
-                    label="Jev Risk Score (1-10)",
-                    value=f"{r_score} / 10",
-                    delta="CRITICAL" if r_score >= 8 else ("HIGH" if r_score >= 6 else ("MEDIUM" if r_score >= 4 else "LOW")),
-                    delta_color="inverse" if r_score >= 6 else "normal"
-                )
-            with jc2:
-                vuln_text = "🚨 VULNERABLE" if jev.get('has_vulnerability') else "✅ CLEAN"
-                st.metric(
-                    label="System One Gate (Noul)",
-                    value=vuln_text,
-                    delta=f"{int(jev.get('vuln_confidence', 0.9)*100)}% Confidence"
-                )
-            with jc3:
-                st.metric(
-                    label="CWE Classification (Choice)",
-                    value=f"{jev.get('cwe_choice', 'CWE-General')}",
-                    delta=f"Big-O: {jev.get('complexity_choice', 'O(1)')}"
-                )
-            with jc4:
-                api_mode = "Live API (api.typesafe.ai)" if jev.get("live_api") else "Calibrated Evaluator"
-                st.metric(
-                    label="Decision Latency (Speed)",
-                    value=f"{jev.get('latency_ms', 120)} ms",
-                    delta=api_mode
-                )
-
-        st.markdown("---")
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            sev = sec.get("severity", "MEDIUM")
-            badge_class = "badge-critical" if sev in ("CRITICAL", "HIGH") else "badge-safe"
-            st.markdown(f"""
-            <div class="metric-box">
-                <h4>🛡️ Security Classification</h4>
-                <p><strong>CWE ID:</strong> <code>{sec.get("cwe_id", "N/A")}</code></p>
-                <p><strong>Severity:</strong> <span class="{badge_class}">{sev}</span></p>
-                <p><strong>OWASP:</strong> {sec.get("owasp_category", "N/A")}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        with c2:
-            st.markdown(f"""
-            <div class="metric-box">
-                <h4>⚡ Algorithmic Optimization</h4>
-                <p><strong>Time:</strong> <code>{comp.get("time_before", "N/A")}</code> ➔ <code>{comp.get("time_after", "N/A")}</code></p>
-                <p><strong>Space:</strong> <code>{comp.get("space_before", "N/A")}</code> ➔ <code>{comp.get("space_after", "N/A")}</code></p>
-                <p><strong>Improvement:</strong> {comp.get("improvement", "Optimized")}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        with c3:
-            p_status = "✅ PASSED" if test.get("passed") else "❌ FAILED"
-            st.markdown(f"""
-            <div class="metric-box">
-                <h4>🧪 Test-Driven Verification</h4>
-                <p><strong>Pytest Status:</strong> {p_status}</p>
-                <p><strong>Self-Healing Retries:</strong> {res.get("retry_count", 0)} / {res.get("max_retries", 3)}</p>
-                <p><strong>Sandbox Runtime:</strong> {test.get("duration_seconds", 0)}s</p>
-            </div>
-            """, unsafe_allow_html=True)
-            
-        st.markdown("#### 🔍 Root Cause Analysis & Security Explanation")
-        st.info(sec.get("explanation", "No security vulnerability detected."))
-        st.markdown("#### ⚡ Algorithmic Complexity Breakdown")
-        st.caption(comp.get("analysis", "No performance bottlenecks identified."))
-
-    with tab_diff:
-        st.markdown("#### 🔍 Side-by-Side Unified Diff")
-        st.code(res.get("git_diff", "No diff available."), language="diff")
-        
-        st.markdown("#### 📄 Complete Patched Code (`solution.py`)")
-        st.code(res.get("candidate_patch", ""), language="python")
-
-    with tab_test:
-        st.markdown("#### 🧪 Executed Pytest Test Suite (`test_solution.py`)")
-        st.code(res.get("test_code", "# No tests"), language="python")
-        
-        st.markdown("#### 🖥️ Pytest Execution Terminal Output")
-        stdout_txt = test.get("stdout", "")
-        stderr_txt = test.get("stderr", "")
-        term_output = stdout_txt if stdout_txt else stderr_txt
-        st.code(term_output or "No output captured.", language="text")
-
-    with tab_pr:
-        st.markdown(f"### 📦 Staged PR: `{res.get('pr_title', 'Pull Request')}`")
-        st.caption(f"**Target Branch:** `{res.get('git_branch', 'cognicode/fix')}` | **Commit:** `{res.get('commit_message', 'fix')}`")
-        
-        st.markdown("#### Pull Request Body Preview (Markdown)")
+with tab_pr:
+    st.markdown(
+        f'<div class="cc-panel-head"><h3>{esc(res.get("pr_title") or "Pull request")}</h3>'
+        f'<span>{esc(res.get("git_branch") or "cognicode/fix")}</span></div>',
+        unsafe_allow_html=True,
+    )
+    st.caption(f'Commit message: {res.get("commit_message") or "fix"}')
+    with st.container(border=True):
         st.markdown(res.get("pr_body", ""))
-        
-        if github_token and github_repo:
-            if st.button("🚀 Push Branch & Open Real GitHub PR", type="primary"):
-                from src.git_manager import create_github_pull_request
-                with st.spinner("Pushing to GitHub via REST API..."):
-                    pr_result = create_github_pull_request(
-                        repo_full_name=github_repo,
-                        branch_name=res.get("git_branch", "cognicode/fix"),
-                        pr_title=res.get("pr_title", ""),
-                        pr_body=res.get("pr_body", ""),
-                        github_token=github_token
-                    )
-                if pr_result.get("success") and pr_result.get("pr_url"):
-                    st.success(f"🎉 Live Pull Request Created: [View on GitHub]({pr_result['pr_url']})")
-                else:
-                    st.info(f"{pr_result.get('message', 'Local Git Mode active.')}")
-        else:
-            st.info("💡 **Local Git Mode Active**: Provide a GitHub Token & Repo in the sidebar if you wish to push this PR live to GitHub. Otherwise, use the generated diff above with `git apply`.")
+    if github_token and github_repo:
+        if st.button("Open pull request on GitHub", type="primary", icon=":material/merge:"):
+            from src.git_manager import create_github_pull_request
+            with st.spinner("Pushing the branch and opening the PR..."):
+                pr_result = create_github_pull_request(
+                    repo_full_name=github_repo,
+                    branch_name=res.get("git_branch", "cognicode/fix"),
+                    pr_title=res.get("pr_title", ""),
+                    pr_body=res.get("pr_body", ""),
+                    github_token=github_token
+                )
+            if pr_result.get("success") and pr_result.get("pr_url"):
+                st.success(f"Pull request opened: [view on GitHub]({pr_result['pr_url']})")
+            else:
+                st.error(pr_result.get("message", "GitHub did not accept the pull request."))
+    else:
+        st.caption("To open this as a real PR, add a GitHub token and repo under Integrations in the sidebar. "
+                   "Otherwise apply the diff from the Patch tab with git apply.")
 
-    with tab_state:
-        st.markdown("#### 🧠 Internal LangGraph `AgentState` Inspection")
-        st.caption("Inspect the exact runtime state dictionary passed between nodes in the graph.")
-        st.json(res)
-
-    with tab_graph:
-        st.markdown("### 🕸️ CogniCode Architectural Knowledge Graph (Graphify Memory)")
-        st.caption("Deterministic AST Entity-Relationship Graph generated via `graphify_engine.py` (inspired by Graphify-Labs/graphify).")
-
-        graph_html_path = os.path.join(os.path.dirname(__file__), "graphify-out", "graph.html")
-        graph_json_path = os.path.join(os.path.dirname(__file__), "graphify-out", "graph.json")
-        graph_report_path = os.path.join(os.path.dirname(__file__), "graphify-out", "GRAPH_REPORT.md")
-
-        # Action row
-        col_act1, col_act2, col_act3 = st.columns([2, 1, 1])
-        with col_act1:
-            if st.button("🔄 Re-Extract Knowledge Graph", key="btn_refresh_graph"):
-                import subprocess
-                subprocess.run([sys.executable, "graphify_engine.py"], capture_output=True)
-                st.success("Knowledge Graph re-extracted successfully!")
-                st.rerun()
-        with col_act2:
-            if os.path.exists(graph_json_path):
-                with open(graph_json_path, "r", encoding="utf-8") as f:
-                    st.download_button(
-                        label="📥 Download graph.json",
-                        data=f.read(),
-                        file_name="graph.json",
-                        mime="application/json"
-                    )
-        with col_act3:
-            if os.path.exists(graph_report_path):
-                with open(graph_report_path, "r", encoding="utf-8") as f:
-                    st.download_button(
-                        label="📄 Download GRAPH_REPORT.md",
-                        data=f.read(),
-                        file_name="GRAPH_REPORT.md",
-                        mime="text/markdown"
-                    )
-
-        # Embedded Interactive Graph
-        if os.path.exists(graph_html_path):
-            with open(graph_html_path, "r", encoding="utf-8") as f:
-                html_data = f.read()
-            import streamlit.components.v1 as components
-            components.html(html_data, height=720, scrolling=True)
-        else:
-            st.warning("graph.html not found. Run `python graphify_engine.py` to generate the interactive graph.")
-
-        # Compact architecture summary used as LLM context
-        with st.expander("📄 Architecture Summary (LLM context block)", expanded=False):
-            st.info("Compact summary of the codebase graph. Injected into agent prompts so they understand the repo layout without reading every file.")
-            if os.path.exists(graph_report_path):
-                with open(graph_report_path, "r", encoding="utf-8") as f:
-                    report_content = f.read()
-                st.code(report_content[:2000] + "\n\n... (See full GRAPH_REPORT.md for all 95 nodes & 617 edges)", language="markdown")
+with tab_state:
+    st.caption("The AgentState dictionary passed between graph nodes, as it was after the last step.")
+    st.json(res, expanded=1)
