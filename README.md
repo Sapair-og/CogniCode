@@ -4,6 +4,8 @@
 
 Built with LangGraph, Python's `ast` module, FAISS, pytest and the GitHub REST API. Streamlit dashboard on top.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Sapair-og/CogniCode)
+
 ![CogniCode dashboard](docs/screenshots/dashboard.png)
 
 ---
@@ -99,10 +101,29 @@ pytest -q test_cache_and_cost.py test_gateway.py test_jev_client.py test_verific
 
 Tests that need real API keys are skipped when the keys are missing.
 
+### Docker
+
+```bash
+docker build -t cognicode .
+docker run -p 8501:8501 --env-file .env cognicode
+```
+
+## Deployment
+
+The app runs as one Docker web service on Render's free plan. The setup is in [`render.yaml`](render.yaml).
+
+1. On Render, go to **New → Blueprint** and pick this repo, or use the button at the top of this README.
+2. Fill in the secrets in the dashboard. For a **public demo**, leave `OPENAI_API_KEY`, `GROQ_API_KEY` and `GITHUB_TOKEN` empty: visitors paste their own key in the sidebar, so nobody can spend yours or open PRs on your repo.
+3. Every push to `main` redeploys automatically. Render checks `/_stcore/health` before switching traffic.
+
+On the free plan the service sleeps after 15 minutes without traffic, so the first request after that takes about a minute. The AST cache in `.cache/` is not persistent and resets on each deploy.
+
 ## Project layout
 
 ```
 app.py                 Streamlit dashboard
+Dockerfile             container image (Streamlit on $PORT)
+render.yaml            Render Blueprint
 graphify_engine.py     builds a knowledge graph of this repo from its AST (graph.json / graph.html)
 src/
   state.py             AgentState (TypedDict) shared by all nodes
@@ -129,7 +150,7 @@ samples/               vulnerable example files
 
 ## Limitations / next steps
 
-- The sandbox is a subprocess with a timeout, not a container. Untrusted code should run in Docker or gVisor.
+- The sandbox is a subprocess with a timeout, not its own container. In the hosted demo it runs inside the app's container as a non-root user. Untrusted code should still get its own Docker or gVisor sandbox.
 - The LLM writes both the patch and its tests, so the tests can share the patch's blind spots. Next step: mutation testing or property-based tests (Hypothesis) to check the tests themselves.
 - Python only, single file at a time.
 

@@ -1,0 +1,26 @@
+# Render Blueprint: New > Blueprint > pick this repo. Secrets marked sync:false are
+# entered in the Render dashboard, never committed.
+services:
+  - type: web
+    name: cognicode
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    region: singapore
+    plan: free
+    healthCheckPath: /_stcore/health
+    autoDeploy: true
+    envVars:
+      - key: MODEL_PROVIDER
+        value: openai
+      - key: DEFAULT_MODEL
+        value: gpt-4o-mini
+      # Leave the keys below empty for a public demo: visitors paste their own key in the
+      # sidebar, so nobody can spend yours. Set them only for a private deployment.
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPOSITORY
+        sync: false
