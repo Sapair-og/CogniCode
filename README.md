@@ -4,6 +4,8 @@
 
 Built with LangGraph, Python's `ast` module, FAISS, pytest and the GitHub REST API. Streamlit dashboard on top.
 
+**Live demo:** https://cognicode-205p.onrender.com (free plan, so the first load can take about a minute while it wakes up)
+
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Sapair-og/CogniCode)
 
 ![CogniCode dashboard](docs/screenshots/dashboard.png)
